@@ -178,15 +178,6 @@ export async function POST(request) {
         { status: 500 }
       );
     }
-    if (apiKey.startsWith("AQ.") || apiKey.toLowerCase().startsWith("bearer ")) {
-      return Response.json(
-        {
-          error:
-            "GEMINI_API_KEY contains an OAuth access token. Create an API key in Google AI Studio (starts with AIza) and add that value to Vercel.",
-        },
-        { status: 500 }
-      );
-    }
 
     const { message, history = [] } = await request.json();
     if (!message || typeof message !== "string") {
