@@ -17,7 +17,7 @@ const BASE_DIR = process.env.VERCEL
   ? path.join("/tmp", "generated")
   : path.join(process.cwd(), "generated");
 
-const MODELS_TO_TRY = ["gemini-2.5-flash-lite"];
+const MODELS_TO_TRY = ["gemini-3.5-flash-lite"];
 
 const MAX_AGENT_TURNS = 5;
 
