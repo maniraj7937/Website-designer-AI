@@ -5,8 +5,8 @@ import fs from "fs/promises";
 import path from "path";
 import os from "os";
 
-// Allow up to 60s on Vercel for multi-step agent runs
-export const maxDuration = 60;
+// Keep this within Vercel Hobby's serverless function limit.
+export const maxDuration = 10;
 export const dynamic = "force-dynamic";
 
 const asyncExecute = promisify(exec);
@@ -23,7 +23,7 @@ const MODELS_TO_TRY = [
   "gemini-3.1-flash-lite",
 ];
 
-const MAX_AGENT_TURNS = 20;
+const MAX_AGENT_TURNS = 6;
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
