@@ -17,10 +17,14 @@ const BASE_DIR = process.env.VERCEL
   ? path.join("/tmp", "generated")
   : path.join(process.cwd(), "generated");
 
-const MODELS_TO_TRY = ["gemini-2.5-flash-lite", "gemini-2.5-flash"];
+const MODELS_TO_TRY = [
+  "gemini-3.6-flash",
+  "gemini-3.5-flash-lite",
+  "gemini-3.1-flash-lite",
+];
 
-const MAX_AGENT_TURNS = 1;
-const MODEL_TIMEOUT_MS = 8500;
+const MAX_AGENT_TURNS = 2;
+const MODEL_TIMEOUT_MS = 3500;
 
 function withTimeout(promise, timeoutMs) {
   return Promise.race([
