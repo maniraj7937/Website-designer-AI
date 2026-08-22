@@ -8,6 +8,19 @@ const SUGGESTIONS = [
   "Build a todo list app",
 ];
 
+async function readJsonResponse(response) {
+  const responseText = await response.text();
+  try {
+    return JSON.parse(responseText);
+  } catch {
+    throw new Error(
+      response.ok
+        ? "The server returned an invalid response. Please try again."
+        : `The server returned an error (${response.status}). Check the Vercel function logs.`
+    );
+  }
+}
+
 export default function Home() {
   const [messages, setMessages] = useState([]);
   const [history, setHistory] = useState([]);
@@ -28,7 +41,8 @@ export default function Home() {
   async function refreshFiles() {
     try {
       const res = await fetch("/api/files");
-      const data = await res.json();
+      const data = await readJsonResponse(res);
+      if (!res.ok) throw new Error(data.error || "Could not load files");
       setFiles(data.files || []);
     } catch {
       /* ignore */
@@ -50,7 +64,7 @@ export default function Home() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: text, history }),
       });
-      const data = await res.json();
+      const data = await readJsonResponse(res);
       if (!res.ok) throw new Error(data.error || "Request failed");
 
       setHistory(data.history || []);
@@ -72,7 +86,7 @@ export default function Home() {
   async function viewFile(name) {
     try {
       const res = await fetch(`/api/files?file=${encodeURIComponent(name)}`);
-      const data = await res.json();
+      const data = await readJsonResponse(res);
       if (res.ok) setOpenFile({ name, content: data.content });
     } catch {
       /* ignore */
