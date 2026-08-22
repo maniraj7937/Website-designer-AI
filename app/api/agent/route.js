@@ -23,9 +23,17 @@ const MODELS_TO_TRY = [
   "gemini-3.1-flash-lite",
 ];
 
-const MAX_AGENT_TURNS = 6;
+const MAX_AGENT_TURNS = 2;
+const MODEL_TIMEOUT_MS = 3500;
 
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+function withTimeout(promise, timeoutMs) {
+  return Promise.race([
+    promise,
+    new Promise((_, reject) =>
+      setTimeout(() => reject(new Error("AI request timed out")), timeoutMs)
+    ),
+  ]);
+}
 
 // Keep every path the model asks for inside the workspace folder
 function safePath(filepath) {
@@ -44,7 +52,7 @@ async function executeCommand({ command }) {
     await fs.mkdir(BASE_DIR, { recursive: true });
     const { stdout, stderr } = await asyncExecute(command, {
       cwd: BASE_DIR,
-      timeout: 20000,
+      timeout: 2000,
     });
     if (stderr) return { error: stderr };
     return { success: true, output: stdout || "Task executed completely" };
@@ -117,13 +125,12 @@ Current server operating system is: ${os.platform()}
 
 async function callModelWithRetry(ai, contents) {
   let modelIndex = 0;
-  const maxRetries = 3;
+  const maxRetries = 1;
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     const currentModel = MODELS_TO_TRY[modelIndex];
     try {
-      await sleep(500);
-      return await ai.models.generateContent({
+      return await withTimeout(ai.models.generateContent({
         model: currentModel,
         contents,
         config: {
@@ -137,7 +144,7 @@ async function callModelWithRetry(ai, contents) {
             },
           ],
         },
-      });
+      }), MODEL_TIMEOUT_MS);
     } catch (error) {
       const errStatus =
         error.status || error.statusCode || (error.error && error.error.code);
@@ -151,7 +158,7 @@ async function callModelWithRetry(ai, contents) {
       if (!retryable) throw error;
 
       if (attempt < maxRetries) {
-        await sleep(Math.pow(2, attempt) * 1000);
+        continue;
       } else if (modelIndex < MODELS_TO_TRY.length - 1) {
         modelIndex++;
         attempt = 0; // fresh retries for the fallback model
