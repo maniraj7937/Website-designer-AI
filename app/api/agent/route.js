@@ -17,13 +17,9 @@ const BASE_DIR = process.env.VERCEL
   ? path.join("/tmp", "generated")
   : path.join(process.cwd(), "generated");
 
-const MODELS_TO_TRY = [
-  "gemini-3.6-flash",
-  "gemini-3.5-flash-lite",
-  "gemini-3.1-flash-lite",
-];
+const MODELS_TO_TRY = ["gemini-2.5-flash-lite"];
 
-const MAX_AGENT_TURNS = 20;
+const MAX_AGENT_TURNS = 5;
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -117,12 +113,12 @@ Current server operating system is: ${os.platform()}
 
 async function callModelWithRetry(ai, contents) {
   let modelIndex = 0;
-  const maxRetries = 3;
+  const maxRetries = 1;
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     const currentModel = MODELS_TO_TRY[modelIndex];
     try {
-      await sleep(500);
+      
       return await ai.models.generateContent({
         model: currentModel,
         contents,
