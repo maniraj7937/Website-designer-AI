@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXUS AI | Next-Gen Autonomous AI Agent Platform</title>
+    <meta name="description" content="Deploy specialized autonomous AI agents for Coding, Marketing, Data Science, and Customer Support in seconds. Powered by multi-model reasoning engines.">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Background Canvas Grid & Glow -->
+    <canvas id="canvas-bg"></canvas>
+    <div class="ambient-glow glow-indigo"></div>
+    <div class="ambient-glow glow-cyan"></div>
+
+    <!-- Header Navigation -->
+    <header class="header" id="header">
+        <div class="container nav-container">
+            <a href="#home" class="brand-logo">
+                <div class="logo-icon-box"><i class="fa-solid fa-brain"></i></div>
+                <span class="brand-name">NEXUS<span class="brand-highlight">.AI</span></span>
+            </a>
+
+            <nav class="nav-menu" id="nav-menu">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#live-chat" class="nav-link">Live AI Chat</a>
+                <a href="#agent-store" class="nav-link">AI Agents</a>
+                <a href="#workflow" class="nav-link">Workflow</a>
+                <a href="#api" class="nav-link">API Docs</a>
+                <a href="#pricing" class="nav-link">Pricing</a>
+            </nav>
+
+            <div class="nav-actions">
+                <button class="icon-btn" id="voice-toggle-btn" title="Toggle AI Text-to-Speech Voice">
+                    <i class="fa-solid fa-volume-high" id="voice-icon"></i>
+                </button>
+
+                <button class="icon-btn" id="theme-toggle-btn" title="Switch Theme Color">
+                    <i class="fa-solid fa-palette"></i>
+                </button>
+
+                <a href="#live-chat" class="btn btn-primary hide-mobile">
+                    <span>Try Live AI Agent</span>
+                    <i class="fa-solid fa-bolt"></i>
+                </a>
+
+                <button class="hamburger-btn" id="hamburger-btn" aria-label="Toggle Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero-section">
+            <div class="container hero-grid">
+                <div class="hero-text">
+                    <div class="status-pill">
+                        <span class="pulse-indicator"></span>
+                        <span>Nexus v3.8 Powered by Deep Reasoning & Multi-Agent Swarms</span>
+                    </div>
+
+                    <h1 class="hero-title">
+                        SUPERCHARGE WORK WITH <span class="gradient-text">AUTONOMOUS AI AGENTS</span>
+                    </h1>
+
+                    <p class="hero-subtitle">
+                        Deploy dedicated AI Agents tailored for software development, growth marketing, deep research, and 24/7 automated support. Sub-second latency & zero setup.
+                    </p>
+
+                    <div class="hero-actions">
+                        <a href="#live-chat" class="btn btn-primary btn-lg">
+                            <i class="fa-solid fa-comments"></i>
+                            <span>Chat With AI Agent</span>
+                        </a>
+                        <button class="btn btn-outline btn-lg" id="hero-demo-btn">
+                            <i class="fa-solid fa-play"></i>
+                            <span>Watch 1-Min Tour</span>
+                        </button>
+                    </div>
+
+                    <!-- Quick Model Badges -->
+                    <div class="hero-models-bar">
+                        <span class="model-badge"><i class="fa-solid fa-microchip"></i> GPT-4o Omni</span>
+                        <span class="model-badge"><i class="fa-solid fa-bolt"></i> Claude 3.5 Sonnet</span>
+                        <span class="model-badge"><i class="fa-solid fa-brain"></i> DeepSeek R1</span>
+                        <span class="model-badge"><i class="fa-solid fa-code"></i> Llama 3 70B</span>
+                    </div>
+                </div>
+
+                <!-- Hero Interactive Model Visual -->
+                <div class="hero-visual">
+                    <div class="visual-card">
+                        <div class="visual-card-header">
+                            <div class="window-controls">
+                                <span class="dot red"></span>
+                                <span class="dot yellow"></span>
+                                <span class="dot green"></span>
+                            </div>
+                            <span class="window-title">nexus_agent_swarm.py</span>
+                            <span class="active-badge"><i class="fa-solid fa-circle"></i> 4 Agents Syncing</span>
+                        </div>
+                        <div class="visual-card-body">
+                            <div class="code-stream">
+                                <span class="code-line"><span class="kwd">import</span> nexus_ai <span class="kwd">as</span> nx</span>
+                                <span class="code-line"></span>
+                                <span class="code-line"><span class="cmt"># Initialize Autonomous Multi-Agent Swarm</span></span>
+                                <span class="code-line">swarm = nx.AgentSwarm(models=[<span class="str">"gpt-4o"</span>, <span class="str">"claude-3.5"</span>])</span>
+                                <span class="code-line">dev_agent = swarm.create_agent(role=<span class="str">"Senior Full Stack"</span>)</span>
+                                <span class="code-line">qa_agent = swarm.create_agent(role=<span class="str">"Code Auditor"</span>)</span>
+                                <span class="code-line"></span>
+                                <span class="code-line"><span class="cmt"># Execute Complex Task</span></span>
+                                <span class="code-line">result = dev_agent.solve(<span class="str">"Refactor auth API & write unit tests"</span>)</span>
+                                <span class="code-line"><span class="kwd">print</span>(qa_agent.verify(result))</span>
+                            </div>
+                            <div class="stream-output">
+                                <span class="out-line"><i class="fa-solid fa-check text-success"></i> Task completed in 142ms • 100% Test Coverage</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Counter Bar -->
+        <section class="stats-bar">
+            <div class="container stats-grid">
+                <div class="stat-box">
+                    <div class="stat-val" data-target="12.4">0</div>
+                    <span class="stat-suffix">M+</span>
+                    <p class="stat-lbl">Prompts Processed Daily</p>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-val" data-target="99.8" data-decimals="1">0</div>
+                    <span class="stat-suffix">%</span>
+                    <p class="stat-lbl">Model Accuracy & Precision</p>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-val" data-target="118">0</div>
+                    <span class="stat-suffix">ms</span>
+                    <p class="stat-lbl">Average First-Token Latency</p>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-val" data-target="45000">0</div>
+                    <span class="stat-suffix">+</span>
+                    <p class="stat-lbl">Active AI Developers</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FLAGSHIP FEATURE: LIVE INTERACTIVE AI CHAT SANDBOX -->
+        <section id="live-chat" class="section chat-sandbox-section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-sub"><i class="fa-solid fa-terminal"></i> INTERACTIVE PLAYGROUND</span>
+                    <h2 class="section-title">TEST DRIVE OUR <span class="gradient-text">LIVE AI AGENTS</span></h2>
+                    <p class="section-desc">Select an specialized AI agent persona and start conversing immediately. Try writing code, drafting marketing copy, or analyzing complex data.</p>
+                </div>
+
+                <div class="chat-sandbox-wrapper">
+                    <!-- Agent Selection Sidebar Tabs -->
+                    <div class="agent-selector-bar">
+                        <div class="selector-header">Select AI Agent Persona</div>
+                        <button class="agent-tab active" data-agent="coder">
+                            <div class="agent-avatar avatar-coder"><i class="fa-solid fa-code"></i></div>
+                            <div class="agent-tab-info">
+                                <span class="agent-name">Alex (DevOps & Code AI)</span>
+                                <span class="agent-spec">React, Python, Bug Fixing</span>
+                            </div>
+                        </button>
+
+                        <button class="agent-tab" data-agent="marketer">
+                            <div class="agent-avatar avatar-marketer"><i class="fa-solid fa-bullhorn"></i></div>
+                            <div class="agent-tab-info">
+                                <span class="agent-name">Maya (Creative Copywriter)</span>
+                                <span class="agent-spec">Slogans, Ad Copy, Viral Threads</span>
+                            </div>
+                        </button>
+
+                        <button class="agent-tab" data-agent="analyst">
+                            <div class="agent-avatar avatar-analyst"><i class="fa-solid fa-chart-line"></i></div>
+                            <div class="agent-tab-info">
+                                <span class="agent-name">Orion (Data Scientist AI)</span>
+                                <span class="agent-spec">SQL, Python Pandas, Trends</span>
+                            </div>
+                        </button>
+
+                        <button class="agent-tab" data-agent="support">
+                            <div class="agent-avatar avatar-support"><i class="fa-solid fa-headset"></i></div>
+                            <div class="agent-tab-info">
+                                <span class="agent-name">Aria (Customer Support AI)</span>
+                                <span class="agent-spec">24/7 Troubleshooting & FAQs</span>
+                            </div>
+                        </button>
+                    </div>
+
+                    <!-- Chat Interface Main Area -->
+                    <div class="chat-interface-box">
+                        <!-- Chat Header -->
+                        <div class="chat-header flex-between">
+                            <div class="chat-agent-status">
+                                <div class="agent-avatar-small" id="chat-header-avatar"><i class="fa-solid fa-code"></i></div>
+                                <div>
+                                    <span class="chat-agent-title" id="chat-header-name">Alex (DevOps & Code AI)</span>
+                                    <span class="chat-agent-meta"><i class="fa-solid fa-circle text-success"></i> Active Model: <strong id="chat-header-model">GPT-4o Reasoning</strong></span>
+                                </div>
+                            </div>
+
+                            <div class="chat-actions-top">
+                                <button class="btn-xs btn-outline" id="read-speech-btn" title="Speak Last Response"><i class="fa-solid fa-volume-high"></i> Listen</button>
+                                <button class="btn-xs btn-outline" id="clear-chat-btn" title="Clear Conversation"><i class="fa-solid fa-rotate-right"></i> Reset</button>
+                            </div>
+                        </div>
+
+                        <!-- Chat Messages Screen -->
+                        <div class="chat-messages" id="chat-messages-screen">
+                            <!-- Injected dynamically via JS -->
+                        </div>
+
+                        <!-- Quick Prompts Bar -->
+                        <div class="quick-prompts-bar" id="quick-prompts-bar">
+                            <span class="prompt-label"><i class="fa-solid fa-lightbulb"></i> Suggested Prompts:</span>
+                            <!-- Dynamic prompt chips inserted via JS -->
+                        </div>
+
+                        <!-- Chat Input Box -->
+                        <div class="chat-input-wrapper">
+                            <textarea id="chat-user-input" class="chat-textarea" placeholder="Type your prompt here or click a suggested prompt above... (Press Enter to Send)" rows="1"></textarea>
+                            <button id="chat-send-btn" class="chat-send-btn" title="Send Message">
+                                <i class="fa-solid fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Agent Directory / Store -->
+        <section id="agent-store" class="section agent-store-section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-sub"><i class="fa-solid fa-store"></i> AGENT ECOSYSTEM</span>
+                    <h2 class="section-title">EXPLORE OUR <span class="gradient-text">SPECIALIZED AI AGENTS</span></h2>
+                    <p class="section-desc">Each agent is pre-conditioned with deep domain prompts, specialized vector search, and custom tool usage.</p>
+                </div>
+
+                <!-- Category Filters -->
+                <div class="filter-pills" id="agent-filters">
+                    <button class="pill-btn active" data-filter="all">All Agents</button>
+                    <button class="pill-btn" data-filter="code">Engineering & Code</button>
+                    <button class="pill-btn" data-filter="marketing">Marketing & Writing</button>
+                    <button class="pill-btn" data-filter="analytics">Data & Analytics</button>
+                    <button class="pill-btn" data-filter="business">Support & Sales</button>
+                </div>
+
+                <!-- Agent Cards Grid -->
+                <div class="agent-grid" id="agent-grid">
+                    <!-- Cards rendered via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Multi-Agent Workflow Pipeline Visualizer -->
+        <section id="workflow" class="section workflow-section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-sub"><i class="fa-solid fa-diagram-project"></i> MULTI-AGENT SWARMS</span>
+                    <h2 class="section-title">HOW NEXUS <span class="gradient-text">SWARMS OPERATE</span></h2>
+                    <p class="section-desc">Complex user prompts are automatically broken down, routed to specialized agents, verified, and compiled into a single response.</p>
+                </div>
+
+                <div class="workflow-pipeline">
+                    <div class="pipeline-step">
+                        <div class="step-num">01</div>
+                        <div class="step-icon"><i class="fa-solid fa-brain"></i></div>
+                        <h4>Prompt Router</h4>
+                        <p>Analyzes intent, context length, and required capabilities.</p>
+                    </div>
+
+                    <div class="pipeline-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+
+                    <div class="pipeline-step active-step">
+                        <div class="step-num">02</div>
+                        <div class="step-icon"><i class="fa-solid fa-network-wired"></i></div>
+                        <h4>Swarm Execution</h4>
+                        <p>Specialized agents execute sub-tasks in parallel.</p>
+                    </div>
+
+                    <div class="pipeline-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+
+                    <div class="pipeline-step">
+                        <div class="step-num">03</div>
+                        <div class="step-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                        <h4>Verification & Audit</h4>
+                        <p>Automated fact checking, safety scan, and code syntax linting.</p>
+                    </div>
+
+                    <div class="pipeline-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+
+                    <div class="pipeline-step">
+                        <div class="step-num">04</div>
+                        <div class="step-icon"><i class="fa-solid fa-bolt"></i></div>
+                        <h4>Sub-100ms Stream</h4>
+                        <p>Delivered via WebSockets directly to your app or dashboard.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- API Code Snippet & Integration -->
+        <section id="api" class="section api-section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-sub"><i class="fa-solid fa-code"></i> DEVELOPER INTEGRATION</span>
+                    <h2 class="section-title">INTEGRATE WITH <span class="gradient-text">3 LINES OF CODE</span></h2>
+                    <p class="section-desc">SDKs available for Python, Node.js, Go, and REST API.</p>
+                </div>
+
+                <div class="api-box">
+                    <div class="api-tabs">
+                        <button class="api-tab-btn active" data-lang="python"><i class="fa-brands fa-python"></i> Python</button>
+                        <button class="api-tab-btn" data-lang="javascript"><i class="fa-brands fa-js"></i> Node.js</button>
+                        <button class="api-tab-btn" data-lang="curl"><i class="fa-solid fa-terminal"></i> cURL</button>
+                    </div>
+                    <div class="api-code-content">
+                        <pre id="api-code-display"><code id="code-snippet-screen"># Install SDK: pip install nexus-ai-sdk
+
+from nexus_ai import NexusClient
+
+client = NexusClient(api_key="nx_live_982374928374")
+
+response = client.agents.chat(
+    agent_id="alex-code-pro",
+    messages=[{"role": "user", "content": "Write a FastAPI route for JWT auth"}]
+)
+
+print(response.output)</code></pre>
+                        <button class="copy-code-btn" id="copy-code-btn"><i class="fa-regular fa-copy"></i> Copy Code</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing & Token Calculator -->
+        <section id="pricing" class="section pricing-section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-sub"><i class="fa-solid fa-tags"></i> SIMPLE PRICING</span>
+                    <h2 class="section-title">CHOOSE YOUR <span class="gradient-text">AI PLAN</span></h2>
+                    <p class="section-desc">Scale seamlessly from individual side-projects to enterprise multi-agent swarms.</p>
+                </div>
+
+                <!-- Token Estimator Slider Widget -->
+                <div class="calculator-box">
+                    <h3><i class="fa-solid fa-calculator text-primary"></i> Estimate Monthly Usage & Savings</h3>
+                    <div class="slider-group">
+                        <div class="flex-between">
+                            <label>Estimated Monthly AI Prompts:</label>
+                            <span class="slider-val-display" id="token-count-display">50,000 Prompts</span>
+                        </div>
+                        <input type="range" id="token-slider" min="5000" max="500000" step="5000" value="50000" class="range-input">
+                    </div>
+                    <div class="calc-cost-result">
+                        <div>
+                            <span class="cost-lbl">Direct OpenAI / Anthropic Raw Cost:</span>
+                            <span class="cost-num text-muted" id="raw-cost-display">$125/mo</span>
+                        </div>
+                        <div>
+                            <span class="cost-lbl">Nexus AI Optimized Plan Cost:</span>
+                            <span class="cost-num text-success" id="nexus-cost-display">$29/mo (Save 76%)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pricing Cards Grid -->
+                <div class="pricing-grid">
+                    <!-- Starter Plan -->
+                    <div class="price-card">
+                        <div class="price-header">
+                            <h3>STARTER AI</h3>
+                            <div class="price-amount"><span class="currency">$</span><span class="num">0</span><span class="period">/mo</span></div>
+                            <p>For exploring AI agents & casual prompting.</p>
+                        </div>
+                        <ul class="price-features">
+                            <li><i class="fa-solid fa-check text-success"></i> 1,000 Free Prompts / Mo</li>
+                            <li><i class="fa-solid fa-check text-success"></i> Access to GPT-4o Mini & Llama 3</li>
+                            <li><i class="fa-solid fa-check text-success"></i> Standard Web Chat Interface</li>
+                            <li class="disabled"><i class="fa-solid fa-xmark"></i> Multi-Agent Swarms</li>
+                            <li class="disabled"><i class="fa-solid fa-xmark"></i> Custom Vector RAG Search</li>
+                        </ul>
+                        <button class="btn btn-outline btn-block select-plan-btn" data-plan="Starter">Get Started Free</button>
+                    </div>
+
+                    <!-- Pro Plan (Featured) -->
+                    <div class="price-card featured-card">
+                        <div class="featured-badge">MOST POPULAR</div>
+                        <div class="price-header">
+                            <h3>PRO CREATOR</h3>
+                            <div class="price-amount"><span class="currency">$</span><span class="num">29</span><span class="period">/mo</span></div>
+                            <p>For developers, creators & power users.</p>
+                        </div>
+                        <ul class="price-features">
+                            <li><i class="fa-solid fa-check text-success"></i> 50,000 Prompts / Mo</li>
+                            <li><i class="fa-solid fa-check text-success"></i> All Models (GPT-4o, Claude 3.5, DeepSeek R1)</li>
+                            <li><i class="fa-solid fa-check text-success"></i> Speech Synthesis & Voice Audio</li>
+                            <li><i class="fa-solid fa-check text-success"></i> API Key Access & Node/Python SDK</li>
+                            <li><i class="fa-solid fa-check text-success"></i> Priority Sub-100ms Streaming</li>
+                        </ul>
+                        <button class="btn btn-primary btn-block select-plan-btn" data-plan="Pro Creator">Start 14-Day Free Trial</button>
+                    </div>
+
+                    <!-- Enterprise Swarm -->
+                    <div class="price-card">
+                        <div class="price-header">
+                            <h3>ENTERPRISE SWARM</h3>
+                            <div class="price-amount"><span class="currency">$</span><span class="num">199</span><span class="period">/mo</span></div>
+                            <p>For teams requiring dedicated multi-agent pipelines.</p>
+                        </div>
+                        <ul class="price-features">
+                            <li><i class="fa-solid fa-check text-success"></i> Unlimited Prompts & Tokens</li>
+                            <li><i class="fa-solid fa-check text-success"></i> Custom Multi-Agent Pipelines</li>
+                            <li><i class="fa-solid fa-check text-success"></i> Custom Fine-Tuned Local Models</li>
+                            <li><i class="fa-solid fa-check text-success"></i> Dedicated VPC & SOC2 Security</li>
+                            <li><i class="fa-solid fa-check text-success"></i> 24/7 Priority Support & SLA</li>
+                        </ul>
+                        <button class="btn btn-outline btn-block select-plan-btn" data-plan="Enterprise">Contact Sales</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-brand-col">
+                <a href="#home" class="brand-logo">
+                    <div class="logo-icon-box"><i class="fa-solid fa-brain"></i></div>
+                    <span class="brand-name">NEXUS<span class="brand-highlight">.AI</span></span>
+                </a>
+                <p>Empowering humanity with accessible, reliable, and high-performance autonomous AI agent swarms.</p>
+            </div>
+
+            <div class="footer-col">
+                <h5>Platform</h5>
+                <ul>
+                    <li><a href="#live-chat">Live Chat</a></li>
+                    <li><a href="#agent-store">Agent Marketplace</a></li>
+                    <li><a href="#workflow">Multi-Agent Swarms</a></li>
+                    <li><a href="#api">Developer API</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h5>Models Supported</h5>
+                <ul>
+                    <li><a href="#">GPT-4o Omni</a></li>
+                    <li><a href="#">Claude 3.5 Sonnet</a></li>
+                    <li><a href="#">DeepSeek R1</a></li>
+                    <li><a href="#">Llama 3 70B</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h5>Company</h5>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Security & Privacy</a></li>
+                    <li><a href="#">Status Page</a></li>
+                    <li><a href="#">Contact Support</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container flex-between">
+                <p>&copy; 2025 NEXUS AI Inc. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a> | <a href="#">API Agreement</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Demo Video Modal -->
+    <div class="modal-overlay" id="demo-modal">
+        <div class="modal-container modal-lg">
+            <button class="modal-close" id="close-demo-modal"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-circle-play text-primary"></i> Nexus AI Agents in Action</h3>
+            </div>
+            <div class="modal-body text-center">
+                <div class="video-placeholder-box">
+                    <i class="fa-solid fa-robot video-robot-icon"></i>
+                    <h3>Autonomous Multi-Agent Collaboration</h3>
+                    <p>Watch 4 specialized agents build a full-stack SaaS app in under 60 seconds.</p>
+                    <button class="btn btn-primary" id="start-simulation-btn"><i class="fa-solid fa-play"></i> Play Interactive Simulation</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

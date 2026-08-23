@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Pulse News | Breaking News, Politics, Tech & Markets</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,600&display=swap" rel="stylesheet">
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+
+    <!-- TOP BAR (Stocks Ticker, Weather, Date & Theme Toggle) -->
+    <div class="top-bar">
+        <div class="container top-bar-flex">
+            <div class="top-left-info">
+                <span class="date-badge" id="currentDate"><i class="far fa-calendar-alt"></i> Loading Date...</span>
+                <span class="weather-badge"><i class="fas fa-cloud-sun"></i> New York 22°C <i class="fas fa-arrow-up"></i></span>
+            </div>
+            <div class="stock-ticker">
+                <div class="ticker-track">
+                    <span><i class="fas fa-chart-line text-green"></i> S&P 500: 5,120.40 (+0.8%)</span>
+                    <span><i class="fas fa-chart-line text-green"></i> NASDAQ: 16,280.15 (+1.2%)</span>
+                    <span><i class="fas fa-chart-line text-red"></i> FTSE 100: 7,930.20 (-0.3%)</span>
+                    <span><i class="fas fa-chart-line text-green"></i> BTC/USD: $68,450 (+3.4%)</span>
+                </div>
+            </div>
+            <div class="top-right-actions">
+                <button class="theme-toggle" id="themeToggle" title="Toggle Dark/Light Mode">
+                    <i class="fas fa-moon" id="themeIcon"></i>
+                </button>
+                <button class="btn btn-sm btn-outline-primary" onclick="openModal('subscribeModal')"><i class="fas fa-envelope-open-text"></i> Newsletter</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN HEADER & LOGO -->
+    <header class="main-header" id="navbar">
+        <div class="container header-flex">
+            <div class="header-social">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+            <a href="#" class="logo">
+                <h1>GLOBAL PULSE</h1>
+                <p>Veritas Et Constantia</p>
+            </a>
+            <div class="header-user-actions">
+                <button class="search-btn-trigger" onclick="openModal('searchModal')"><i class="fas fa-search"></i> Search</button>
+                <button class="btn btn-primary btn-sm" onclick="openModal('loginModal')"><i class="fas fa-user"></i> Sign In</button>
+                <div class="hamburger" id="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- CATEGORY NAVIGATION -->
+    <nav class="cat-nav" id="catNav">
+        <div class="container">
+            <ul class="cat-list">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#world">World</a></li>
+                <li><a href="#politics">Politics</a></li>
+                <li><a href="#tech">Tech & AI</a></li>
+                <li><a href="#business">Markets</a></li>
+                <li><a href="#science">Science</a></li>
+                <li><a href="#culture">Culture</a></li>
+                <li><a href="#opinion">Opinion</a></li>
+                <li><a href="#podcasts">Podcasts</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- BREAKING NEWS TICKER -->
+    <div class="breaking-banner">
+        <div class="container breaking-flex">
+            <span class="breaking-tag"><i class="fas fa-bolt"></i> BREAKING NEWS</span>
+            <div class="breaking-ticker">
+                <marquee behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();">
+                    <a href="#article" onclick="openArticleModal('Global Summit Reaches Historic Climate Accord in Geneva')">🌍 Global Climate Summit Reaches Historic Carbon Reduction Accord in Geneva — Delegates Applaud Unanimous Vote. &nbsp;&nbsp;|&nbsp;&nbsp; </a>
+                    <a href="#article" onclick="openArticleModal('Tech Giants Announce New AI Safety Protocols')">💻 Major Tech Corporations Announce Unified AI Safety and Ethical Governance Protocols. &nbsp;&nbsp;|&nbsp;&nbsp; </a>
+                    <a href="#article" onclick="openArticleModal('Global Markets Rally Following Federal Reserve Rate Decision')">📈 Global Stock Markets Rally Following Central Bank's Unexpected Interest Rate Decision.</a>
+                </marquee>
+            </div>
+        </div>
+    </div>
+
+    <!-- HERO GRID NEWS (BENTO LAYOUT) -->
+    <section class="hero-news-section py-4" id="home">
+        <div class="container bento-grid">
+            <!-- Main Featured Story -->
+            <div class="bento-main" style="background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80') center/cover;" onclick="openArticleModal('The Future of Quantum Computing in Global Cryptography')">
+                <div class="bento-content">
+                    <span class="category-badge">Technology</span>
+                    <h2>The Future of Quantum Computing in Global Cryptography & Defense</h2>
+                    <p>As quantum processors reach unprecedented qubit stability, world governments race to overhaul encryption standards before classical algorithms become obsolete.</p>
+                    <div class="article-meta">
+                        <span><i class="far fa-clock"></i> 2 hours ago</span>
+                        <span><i class="far fa-comment"></i> 48 Comments</span>
+                        <span><i class="fas fa-bookmark" onclick="event.stopPropagation(); toggleBookmark(this);"></i></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Side Story 1 -->
+            <div class="bento-side" style="background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=600&q=80') center/cover;" onclick="openArticleModal('Central Banks Pivot Toward Digital Currencies')">
+                <div class="bento-content">
+                    <span class="category-badge">Markets</span>
+                    <h3>Central Banks Accelerate Transition Toward Sovereign Digital Currencies</h3>
+                    <div class="article-meta">
+                        <span><i class="far fa-clock"></i> 4 hours ago</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Side Story 2 -->
+            <div class="bento-side" style="background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=600&q=80') center/cover;" onclick="openArticleModal('Geopolitical Shifts in the Indo-Pacific Trade Corridor')">
+                <div class="bento-content">
+                    <span class="category-badge">World Politics</span>
+                    <h3>Geopolitical Shifts Redraw Trade Corridors Across the Indo-Pacific Region</h3>
+                    <div class="article-meta">
+                        <span><i class="far fa-clock"></i> 5 hours ago</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN NEWS CONTENT WITH SIDEBAR -->
+    <main class="main-content py-4">
+        <div class="container content-layout">
+            
+            <!-- LEFT / MAIN COLUMN -->
+            <div class="news-feed-column">
+                
+                <!-- SECTION HEADER -->
+                <div class="section-heading">
+                    <h2>Latest World Stories</h2>
+                    <div class="filter-tabs">
+                        <button class="tab-btn active" onclick="filterFeed('all')">All</button>
+                        <button class="tab-btn" onclick="filterFeed('politics')">Politics</button>
+                        <button class="tab-btn" onclick="filterFeed('tech')">Tech</button>
+                        <button class="tab-btn" onclick="filterFeed('business')">Business</button>
+                    </div>
+                </div>
+
+                <!-- ARTICLE LIST -->
+                <div class="article-list" id="articleList">
+                    
+                    <!-- Article Item 1 -->
+                    <article class="article-card" data-category="tech" onclick="openArticleModal('Next-Gen Renewable Energy Grid Powered by AI')">
+                        <div class="article-thumb">
+                            <img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=400&q=80" alt="News">
+                            <span class="cat-tag">Tech & AI</span>
+                        </div>
+                        <div class="article-info">
+                            <h3>Next-Gen Renewable Energy Grid Powered by Deep Learning AI</h3>
+                            <p>Machine learning models now predict wind and solar fluctuations with 99% accuracy, transforming power distribution across metropolitan cities.</p>
+                            <div class="card-meta">
+                                <span><i class="far fa-user"></i> By Sarah Jenkins</span>
+                                <span><i class="far fa-clock"></i> 3 hrs ago</span>
+                                <span><i class="far fa-comment"></i> 19</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Article Item 2 -->
+                    <article class="article-card" data-category="politics" onclick="openArticleModal('UN Council Adopts Resolution on Autonomous Defense')">
+                        <div class="article-thumb">
+                            <img src="https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=400&q=80" alt="News">
+                            <span class="cat-tag">Politics</span>
+                        </div>
+                        <div class="article-info">
+                            <h3>UN Security Council Adopts Landmark Resolution on Autonomous Defense</h3>
+                            <p>Global superpowers agree to strict limitations on autonomous weapon systems following an emergency diplomatic session in New York.</p>
+                            <div class="card-meta">
+                                <span><i class="far fa-user"></i> By David Vance</span>
+                                <span><i class="far fa-clock"></i> 5 hrs ago</span>
+                                <span><i class="far fa-comment"></i> 32</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Article Item 3 -->
+                    <article class="article-card" data-category="business" onclick="openArticleModal('Electric Vehicle Manufacturers Pivot to Solid-State Batteries')">
+                        <div class="article-thumb">
+                            <img src="https://images.unsplash.com/photo-1558449028-b53a39d100fc?auto=format&fit=crop&w=400&q=80" alt="News">
+                            <span class="cat-tag">Markets</span>
+                        </div>
+                        <div class="article-info">
+                            <h3>Electric Vehicle Manufacturers Pivot Mass Production to Solid-State Batteries</h3>
+                            <p>Charging times slashed to under 10 minutes as breakthrough solid-state cells enter commercial factory lines this quarter.</p>
+                            <div class="card-meta">
+                                <span><i class="far fa-user"></i> By Michael Chang</span>
+                                <span><i class="far fa-clock"></i> 7 hrs ago</span>
+                                <span><i class="far fa-comment"></i> 15</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Article Item 4 -->
+                    <article class="article-card" data-category="science" onclick="openArticleModal('James Webb Telescope Discovers Atmospheric Biomarkers')">
+                        <div class="article-thumb">
+                            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=400&q=80" alt="News">
+                            <span class="cat-tag">Science</span>
+                        </div>
+                        <div class="article-info">
+                            <h3>James Webb Telescope Detects Complex Biomarkers on Exoplanet K2-18b</h3>
+                            <p>Astronomers confirm spectroscopic signatures pointing towards potential organic molecules in the habitable zone of a distant star system.</p>
+                            <div class="card-meta">
+                                <span><i class="far fa-user"></i> By Dr. Elena Rostova</span>
+                                <span><i class="far fa-clock"></i> 9 hrs ago</span>
+                                <span><i class="far fa-comment"></i> 64</span>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+
+                <!-- LOAD MORE BUTTON -->
+                <div class="load-more-container text-center py-4">
+                    <button class="btn btn-outline-primary btn-lg" onclick="loadMoreArticles()">Load More Stories <i class="fas fa-spinner"></i></button>
+                </div>
+
+            </div>
+
+            <!-- RIGHT / SIDEBAR COLUMN -->
+            <aside class="sidebar-column">
+                
+                <!-- WEATHER & MARKET WIDGET -->
+                <div class="widget weather-widget">
+                    <h3><i class="fas fa-cloud-sun"></i> Live Weather & Markets</h3>
+                    <div class="weather-box">
+                        <div class="city-weather">
+                            <strong>London</strong>
+                            <span>16°C • Partly Cloudy</span>
+                        </div>
+                        <div class="city-weather">
+                            <strong>New York</strong>
+                            <span>22°C • Sunny</span>
+                        </div>
+                        <div class="city-weather">
+                            <strong>Tokyo</strong>
+                            <span>18°C • Rain</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TRENDING ARTICLES WIDGET -->
+                <div class="widget trending-widget">
+                    <h3><i class="fas fa-fire text-red"></i> Trending Now</h3>
+                    <ul class="trending-list">
+                        <li onclick="openArticleModal('AI Model Surpasses Human Benchmark in Medical Diagnostics')">
+                            <span class="rank">01</span>
+                            <div>
+                                <h4>AI Model Surpasses Human Benchmark in Oncology Diagnostics</h4>
+                                <span class="time">1.2k readers</span>
+                            </div>
+                        </li>
+                        <li onclick="openArticleModal('Global Central Banks Test Interoperable CBDC Network')">
+                            <span class="rank">02</span>
+                            <div>
+                                <h4>Global Central Banks Successfully Test Interoperable CBDC Network</h4>
+                                <span class="time">980 readers</span>
+                            </div>
+                        </li>
+                        <li onclick="openArticleModal('SpaceX Announces Manned Lunar Base Construction Timeline')">
+                            <span class="rank">03</span>
+                            <div>
+                                <h4>SpaceX Announces Manned Lunar Base Construction Timeline for 2028</h4>
+                                <span class="time">850 readers</span>
+                            </div>
+                        </li>
+                        <li onclick="openArticleModal('Breakthrough in Fusion Energy Yields Net Positive Power')">
+                            <span class="rank">04</span>
+                            <div>
+                                <h4>Breakthrough in Magnetic Confinement Fusion Yields Net Positive Power</h4>
+                                <span class="time">720 readers</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- NEWSLETTER SUBSCRIPTION WIDGET -->
+                <div class="widget newsletter-widget">
+                    <h3><i class="fas fa-paper-plane"></i> Daily Pulse Newsletter</h3>
+                    <p>Get the most important global headlines delivered straight to your inbox every morning.</p>
+                    <form onsubmit="handleNewsletter(event)">
+                        <input type="email" placeholder="Your email address" required>
+                        <button type="submit" class="btn btn-primary w-100">Subscribe Free</button>
+                    </form>
+                </div>
+
+                <!-- AUDIO PODCAST WIDGET -->
+                <div class="widget podcast-widget">
+                    <h3><i class="fas fa-headphones"></i> Latest Podcast Episode</h3>
+                    <div class="podcast-card-mini">
+                        <div class="podcast-icon"><i class="fas fa-play"></i></div>
+                        <div>
+                            <h4>Ep 142: The Geopolitics of Artificial Intelligence</h4>
+                            <span>24 mins • Listen on Spotify & Apple</span>
+                        </div>
+                    </div>
+                </div>
+
+            </aside>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h2>GLOBAL PULSE</h2>
+                    <p>Delivering independent, fearless, and verified global journalism across politics, economics, technology, and science since 1998.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>News Categories</h3>
+                    <ul>
+                        <li><a href="#">World News</a></li>
+                        <li><a href="#">Politics & Policy</a></li>
+                        <li><a href="#">Tech & AI</a></li>
+                        <li><a href="#">Markets & Finance</a></li>
+                        <li><a href="#">Science & Space</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Opinion & Analysis</h3>
+                    <ul>
+                        <li><a href="#">Editorials</a></li>
+                        <li><a href="#">Guest Columnists</a></li>
+                        <li><a href="#">Global Briefing</a></li>
+                        <li><a href="#">Economic Forecast</a></li>
+                        <li><a href="#">Letters to Editor</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Company & Legal</h3>
+                    <ul>
+                        <li><a href="#">About Global Pulse</a></li>
+                        <li><a href="#">Editorial Standards</a></li>
+                        <li><a href="#">Careers & Newsroom</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom text-center">
+                <p>&copy; 2025 Global Pulse News Network. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODALS -->
+    <!-- Article Reader Modal -->
+    <div id="articleModal" class="modal">
+        <div class="modal-content article-modal-content">
+            <span class="close-btn" onclick="closeModal('articleModal')">&times;</span>
+            <div class="article-full-body">
+                <span class="category-badge" id="modalCategory">Global Tech</span>
+                <h1 id="modalTitle">Article Title Goes Here</h1>
+                <div class="modal-author-info">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="Author">
+                    <div>
+                        <strong>By Sarah Jenkins</strong>
+                        <span>Published 2 hours ago • 4 min read</span>
+                    </div>
+                </div>
+                <img id="modalImage" src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=900&q=80" alt="Article Banner" class="modal-banner-img">
+                <div class="modal-text-content" id="modalText">
+                    <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    <h3>The Technological Implications</h3>
+                    <p>Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris.</p>
+                </div>
+                <!-- Interactive Comments Section inside modal -->
+                <div class="comments-section">
+                    <h3>Discussion (3)</h3>
+                    <div class="comment-box">
+                        <input type="text" id="commentInput" placeholder="Join the discussion...">
+                        <button class="btn btn-primary btn-sm" onclick="addComment()">Post Comment</button>
+                    </div>
+                    <div class="comments-list" id="commentsList">
+                        <div class="comment-item">
+                            <strong>Alex Turner</strong>
+                            <p>This is a remarkable development. Looking forward to see how this impacts global markets.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Modal -->
+    <div id="searchModal" class="modal">
+        <div class="modal-content search-modal-content">
+            <span class="close-btn" onclick="closeModal('searchModal')">&times;</span>
+            <h2>Search Global Pulse</h2>
+            <div class="search-input-wrapper">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Search headlines, authors, topics..." onkeyup="liveSearch(event)">
+            </div>
+            <div class="search-results" id="searchResults">
+                <p class="search-hint">Type keywords to search articles instantly...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Newsletter Modal -->
+    <div id="subscribeModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('subscribeModal')">&times;</span>
+            <div class="text-center">
+                <h2>Get The Daily Pulse</h2>
+                <p>Join 250,000+ readers who start their day with our briefing.</p>
+            </div>
+            <form onsubmit="handleModalSubscribe(event)">
+                <div class="form-group mt-3">
+                    <input type="email" placeholder="Enter your email address" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Get Free Briefing</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Sign In Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('loginModal')">&times;</span>
+            <div class="text-center">
+                <h2>Sign In to Global Pulse</h2>
+                <p>Access saved articles and comment history</p>
+            </div>
+            <form onsubmit="handleLoginSubmit(event)">
+                <div class="form-group mt-3">
+                    <label>Email Address</label>
+                    <input type="email" placeholder="name@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Sign In</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Success!</span>
+    </div>
+
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

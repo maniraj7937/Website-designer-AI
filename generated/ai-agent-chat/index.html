@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OmniMind AI | Intelligent Autonomous Agent Workspace</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Marked.js for Markdown rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="brand">
+                    <i class="fas fa-brain"></i>
+                    <span>OmniMind AI</span>
+                </div>
+                <button class="new-chat-btn" onclick="startNewChat()">
+                    <i class="fas fa-plus"></i> New Agent Chat
+                </button>
+            </div>
+
+            <div class="sidebar-chats" id="chatHistoryList">
+                <div class="chat-history-item active" onclick="loadChat(0)">
+                    <i class="far fa-message"></i>
+                    <span>Quantum Computing Analysis</span>
+                </div>
+                <div class="chat-history-item" onclick="loadChat(1)">
+                    <i class="far fa-message"></i>
+                    <span>Python Code Refactoring</span>
+                </div>
+                <div class="chat-history-item" onclick="loadChat(2)">
+                    <i class="far fa-message"></i>
+                    <span>Market Trend Strategy</span>
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="agent-mode-selector">
+                    <label><i class="fas fa-robot"></i> Agent Persona:</label>
+                    <select id="agentPersona" onchange="changePersona()">
+                        <option value="general">Omni General Assistant</option>
+                        <option value="coder">Senior Software Architect</option>
+                        <option value="analyst">Data & Financial Analyst</option>
+                        <option value="creative">Creative Writer & Copywriter</option>
+                    </select>
+                </div>
+                <div class="user-profile-box">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="User">
+                    <div>
+                        <strong>Alex Mercer</strong>
+                        <span>Pro Agent Plan</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN CHAT INTERFACE -->
+        <main class="chat-main">
+            
+            <!-- CHAT HEADER -->
+            <header class="chat-header">
+                <div class="header-left">
+                    <button class="mobile-toggle" id="sidebarToggle" onclick="toggleSidebar()">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="active-agent-status">
+                        <span class="status-dot"></span>
+                        <h3 id="currentAgentTitle">Omni General Assistant</h3>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <button class="action-icon-btn" onclick="clearCurrentChat()" title="Clear Chat">
+                        <i class="fas fa-trash-can"></i>
+                    </button>
+                    <button class="action-icon-btn" onclick="toggleTheme()" title="Toggle Theme">
+                        <i class="fas fa-moon" id="themeIcon"></i>
+                    </button>
+                    <button class="action-icon-btn" onclick="openModal('settingsModal')" title="API Settings">
+                        <i class="fas fa-gear"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- CHAT MESSAGES CONTAINER -->
+            <div class="chat-messages" id="chatMessages">
+                
+                <!-- Welcome Assistant Message -->
+                <div class="message ai-message">
+                    <div class="avatar ai-avatar"><i class="fas fa-brain"></i></div>
+                    <div class="message-content">
+                        <div class="message-sender">OmniMind Agent</div>
+                        <div class="bubble">
+                            <p>Hello Alex! I am your autonomous AI agent. I can write code, analyze data, browse simulated web sources, and solve complex problems. What can we tackle today?</p>
+                        </div>
+                        <div class="quick-prompts">
+                            <button onclick="sendQuickPrompt('Explain Quantum Entanglement in simple terms')">🌌 Explain Quantum Entanglement</button>
+                            <button onclick="sendQuickPrompt('Write a Python script for web scraping with BeautifulSoup')">💻 Python Web Scraper Script</button>
+                            <button onclick="sendQuickPrompt('Give me 3 startup ideas combining AI and renewable energy')">🚀 AI & Green Energy Startups</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- CHAT INPUT AREA -->
+            <div class="chat-input-area">
+                <div class="input-wrapper">
+                    <div class="input-tools-left">
+                        <button class="tool-btn" onclick="triggerFileUpload()" title="Upload File">
+                            <i class="fas fa-paperclip"></i>
+                        </button>
+                        <button class="tool-btn" onclick="toggleWebSearch()" id="webSearchToggle" title="Enable Web Search">
+                            <i class="fas fa-globe"></i>
+                        </button>
+                    </div>
+                    <textarea id="userInput" placeholder="Ask OmniMind agent anything or type '/' for commands..." rows="1" onkeydown="handleKeyDown(event)" oninput="autoResizeTextarea(this)"></textarea>
+                    <button class="send-btn" id="sendBtn" onclick="handleSendMessage()">
+                        <i class="fas fa-arrow-up"></i>
+                    </button>
+                </div>
+                <div class="input-footer-note">
+                    <span><i class="fas fa-shield-alt"></i> Secure End-to-End AI Agent Session</span>
+                    <span>Model: Omni-GPT 4.5 Turbo</span>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- SETTINGS MODAL -->
+    <div id="settingsModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('settingsModal')">&times;</span>
+            <div class="modal-header">
+                <h2>Agent Configuration</h2>
+                <p>Customize AI behavior and API parameters</p>
+            </div>
+            <div class="form-group">
+                <label>AI Temperature (Creativity)</label>
+                <input type="range" min="0" max="1" step="0.1" value="0.7" id="tempRange">
+            </div>
+            <div class="form-group">
+                <label>System Prompt Instruction</label>
+                <textarea rows="3" id="systemPrompt">You are OmniMind, an expert autonomous AI assistant designed to provide accurate, deep, and well-formatted answers.</textarea>
+            </div>
+            <button class="btn btn-primary w-100" onclick="saveSettings()">Save Configuration</button>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Success!</span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
