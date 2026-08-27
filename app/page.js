@@ -6,7 +6,10 @@ const SUGGESTIONS = [
   "Build a calculator website with a dark theme",
   "Build a personal portfolio website",
   "Build a todo list app",
+  "Create a luxury landing page",
 ];
+
+const MODEL_OPTIONS = ["Gemini 3.5 flash lite"];
 
 export default function Home() {
   const [messages, setMessages] = useState([]);
@@ -15,6 +18,10 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [files, setFiles] = useState([]);
   const [openFile, setOpenFile] = useState(null);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [darkMode, setDarkMode] = useState(true);
+  const [modelOpen, setModelOpen] = useState(false);
+  const [selectedModel, setSelectedModel] = useState(MODEL_OPTIONS[0]);
   const bottomRef = useRef(null);
 
   useEffect(() => {
@@ -31,12 +38,12 @@ export default function Home() {
       const data = await res.json();
       setFiles(data.files || []);
     } catch {
-      /* ignore */
+      // ignore
     }
   }
 
   async function sendMessage(e) {
-    e.preventDefault();
+    if (e) e.preventDefault();
     const text = input.trim();
     if (!text || loading) return;
 
@@ -75,130 +82,197 @@ export default function Home() {
       const data = await res.json();
       if (res.ok) setOpenFile({ name, content: data.content });
     } catch {
-      /* ignore */
+      // ignore
     }
   }
 
   function newChat() {
     setMessages([]);
     setHistory([]);
+    setOpenFile(null);
   }
 
   return (
-    <div className="shell">
+    <div className={`app-shell ${darkMode ? "dark" : "light"}`}>
       <header className="topbar">
-        <div className="brand">
-          <span className="logo">◆</span>
-          <div>
-            <h1>AI Website Builder</h1>
-            <p>Describe a website — the agent creates the files for you</p>
+        <div className="topbar-left">
+          <button className="icon-button" onClick={() => setSidebarOpen((v) => !v)} aria-label="Toggle sidebar">
+            {sidebarOpen ? "‹" : "☰"}
+          </button>
+
+          <div className="brand-wrap">
+            <div className="brand-mark">✦</div>
+            <div className="brand-copy">
+              <span className="brand-title">Website</span>
+              <span className="brand-subtitle">Builder</span>
+            </div>
+          </div>
+
+          <div className="model-shell">
+            <button className="model-pill" type="button" onClick={() => setModelOpen((v) => !v)}>
+              {selectedModel} <span>⌄</span>
+            </button>
+
+            {modelOpen && (
+              <div className="model-dropdown">
+                <div className="dropdown-label">Available Models</div>
+                {MODEL_OPTIONS.map((model) => (
+                  <button
+                    key={model}
+                    type="button"
+                    className={`dropdown-item ${selectedModel === model ? "selected" : ""}`}
+                    onClick={() => {
+                      setSelectedModel(model);
+                      setModelOpen(false);
+                    }}
+                  >
+                    <span>{model}</span>
+                    {selectedModel === model && <em>✓</em>}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         </div>
-        <button className="ghost" onClick={newChat}>
-          New chat
-        </button>
+
+        <div className="topbar-right">
+          <button className="icon-button" type="button" aria-label="Toggle theme" onClick={() => setDarkMode((v) => !v)}>
+            {darkMode ? "☀" : "☾"}
+          </button>
+          <button className="icon-button" type="button" aria-label="Settings">⚙</button>
+          <button className="avatar-badge" type="button" aria-label="Profile">U</button>
+        </div>
       </header>
 
-      <main className="layout">
-        <section className="chat">
-          <div className="messages">
-            {messages.length === 0 && !loading && (
-              <div className="empty">
-                <h2>What should we build today?</h2>
-                <div className="chips">
-                  {SUGGESTIONS.map((s) => (
-                    <button key={s} onClick={() => setInput(s)}>
-                      {s}
+      <div className="workspace">
+        <aside className={`sidebar ${sidebarOpen ? "open" : "closed"}`}>
+          <button className="new-chat" type="button" onClick={newChat}>
+            <span>＋</span> New chat
+          </button>
+
+          <div className="sidebar-section">
+            <span className="section-label">Recent</span>
+            <div className="recent-list">
+              {messages.length > 0 ? (
+                <button className="recent-item active" type="button">
+                  {messages[0].text}
+                </button>
+              ) : (
+                <div className="recent-placeholder">Your recent builder prompts appear here.</div>
+              )}
+            </div>
+          </div>
+
+          <div className="sidebar-footer">
+            <button className="footer-link" type="button">Help & FAQ</button>
+            <button className="footer-link" type="button">Activity</button>
+            <button className="footer-link" type="button">Settings</button>
+            <span className="status-pill"><i></i> Agent ready</span>
+          </div>
+        </aside>
+
+        <main className="chat-panel">
+          {messages.length === 0 && !loading && (
+            <div className="welcome-screen">
+              <div className="welcome-inner">
+                <div className="welcome-kicker">Hello, User</div>
+                <h1>How can I help you today?</h1>
+
+                <div className="suggestion-grid">
+                  {SUGGESTIONS.map((item, index) => (
+                    <button key={item} type="button" className="suggestion-card" onClick={() => setInput(item)}>
+                      <span className={`suggestion-icon tone-${index % 3}`}>{index === 0 ? "✦" : index === 1 ? "◌" : index === 2 ? "✓" : "✧"}</span>
+                      <span>{item}</span>
+                      <b>→</b>
                     </button>
                   ))}
                 </div>
               </div>
-            )}
+            </div>
+          )}
 
-            {messages.map((m, i) => (
-              <div key={i} className={`msg ${m.role}`}>
-                <div className="avatar">{m.role === "user" ? "You" : "AI"}</div>
-                <div className="bubble">
-                  {m.toolLogs && m.toolLogs.length > 0 && (
-                    <div className="tools">
-                      {m.toolLogs.map((t, j) => (
-                        <div key={j} className={`tool ${t.result?.error ? "fail" : "ok"}`}>
-                          <span className="tool-name">
-                            {t.tool === "writeFile"
-                              ? `📝 ${t.args?.filepath || "file"}`
-                              : `⚡ ${t.args?.command || t.tool}`}
-                          </span>
-                          <span className="tool-status">
-                            {t.result?.error ? "failed" : "done"}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                  <p>{m.text}</p>
+          {messages.length > 0 && (
+            <div className="chat-stream">
+              {messages.map((m, i) => (
+                <div key={i} className={`msg-row ${m.role}`}>
+                  <div className="avatar-mark">{m.role === "user" ? "U" : "✦"}</div>
+                  <div className="message-bubble">
+                    {m.toolLogs && m.toolLogs.length > 0 && (
+                      <div className="tool-stack">
+                        {m.toolLogs.map((t, j) => (
+                          <div key={j} className={`tool-row ${t.result?.error ? "fail" : "ok"}`}>
+                            <span>{t.tool === "writeFile" ? `File: ${t.args?.filepath || "file"}` : `Run: ${t.args?.command || t.tool}`}</span>
+                            <em>{t.result?.error ? "failed" : "done"}</em>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    <p>{m.text}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
 
-            {loading && (
-              <div className="msg agent">
-                <div className="avatar">AI</div>
-                <div className="bubble">
-                  <span className="typing">
-                    <i></i>
-                    <i></i>
-                    <i></i>
-                  </span>
+              {loading && (
+                <div className="msg-row agent">
+                  <div className="avatar-mark">✦</div>
+                  <div className="message-bubble typing-bubble">
+                    <span className="working-label">Building your website</span>
+                    <span className="typing-dots"><i></i><i></i><i></i></span>
+                  </div>
                 </div>
-              </div>
-            )}
-            <div ref={bottomRef} />
-          </div>
+              )}
+              <div ref={bottomRef} />
+            </div>
+          )}
 
           <form className="composer" onSubmit={sendMessage}>
-            <input
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="e.g. Build a calculator website with a dark theme"
-              disabled={loading}
-            />
-            <button type="submit" disabled={loading || !input.trim()}>
-              {loading ? "Working…" : "Send"}
-            </button>
+            <div className="composer-box">
+              <textarea
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder="Enter a prompt here..."
+                rows={1}
+                disabled={loading}
+              />
+              <div className="composer-toolbar">
+                <div className="left-tools">
+                  <button type="button" className="tool-button" aria-label="Add file">＋</button>
+                  <button type="button" className="tool-button" aria-label="Voice input">◉</button>
+                  <button type="button" className="tool-button" aria-label="Web search">◎</button>
+                </div>
+                <button type="submit" className="send-button" disabled={loading || !input.trim()}>
+                  ↑
+                </button>
+              </div>
+            </div>
           </form>
-        </section>
+        </main>
 
-        <aside className="sidebar">
-          <div className="sidebar-head">
+        <aside className="files-panel">
+          <div className="files-header">
+            <span className="section-label">Output</span>
             <h3>Generated files</h3>
-            <button className="ghost" onClick={refreshFiles}>
-              ↻
-            </button>
+            <button className="icon-button small" type="button" onClick={refreshFiles} aria-label="Refresh files">↻</button>
           </div>
+
           {files.length === 0 ? (
-            <p className="hint">
-              Files created by the agent will appear here. Click one to view its code.
-            </p>
+            <p className="files-empty">Files created by the agent will appear here.</p>
           ) : (
             <ul className="file-list">
               {files.map((f) => (
-                <li key={f}>
-                  <button onClick={() => viewFile(f)}>{f}</button>
-                </li>
+                <li key={f}><button type="button" onClick={() => viewFile(f)}>{f}</button></li>
               ))}
             </ul>
           )}
         </aside>
-      </main>
+      </div>
 
       {openFile && (
-        <div className="overlay" onClick={() => setOpenFile(null)}>
-          <div className="viewer" onClick={(e) => e.stopPropagation()}>
-            <div className="viewer-head">
+        <div className="viewer-overlay" onClick={() => setOpenFile(null)}>
+          <div className="viewer-dialog" onClick={(e) => e.stopPropagation()}>
+            <div className="viewer-header">
               <span>{openFile.name}</span>
-              <button className="ghost" onClick={() => setOpenFile(null)}>
-                ✕
-              </button>
+              <button className="icon-button" type="button" onClick={() => setOpenFile(null)} aria-label="Close">×</button>
             </div>
             <pre>{openFile.content}</pre>
           </div>

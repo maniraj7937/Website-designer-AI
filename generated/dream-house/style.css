@@ -1,0 +1,43 @@
+/* Custom Styling & Animations for Dream House */
+
+@keyframes slowZoom {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.08);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.animate-slow-zoom {
+    animation: slowZoom 25s infinite ease-in-out;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #0A0A0A;
+}
+::-webkit-scrollbar-thumb {
+    background: #C5A059;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #D4AF37;
+}
+
+/* Lightbox customizations */
+.lb-data .lb-caption {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    color: #F9F6F0;
+}
+.lb-data .lb-number {
+    color: #D4AF37;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}

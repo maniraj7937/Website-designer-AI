@@ -1,0 +1,94 @@
+/* Custom Gemini styling & scrollbars */
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(196, 199, 197, 0.2);
+    border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(196, 199, 197, 0.4);
+}
+
+/* Light mode overrides */
+.light {
+    background-color: #f8f9fa !important;
+    color: #202124 !important;
+}
+
+.light header {
+    background-color: #f8f9fa !important;
+    border-color: #dadce0 !important;
+}
+
+.light aside {
+    background-color: #f8f9fa !important;
+    border-color: #dadce0 !important;
+}
+
+.light main {
+    background-color: #ffffff !important;
+}
+
+.light .bg-gemini-surface {
+    background-color: #f0f4f9 !important;
+    border-color: #d3e3fd !important;
+}
+
+.light .bg-gemini-surfaceHover {
+    background-color: #e2eafc !important;
+}
+
+.light .border-gemini-border {
+    border-color: #dadce0 !important;
+}
+
+.light .text-gemini-muted {
+    color: #5f6368 !important;
+}
+
+.light .text-gemini-text {
+    color: #202124 !important;
+}
+
+.light textarea {
+    color: #202124 !important;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.3s ease-out forwards;
+}
+
+/* Code block styling */
+pre {
+    background-color: #1e1f20 !important;
+    border: 1px solid #3c4043;
+    border-radius: 12px;
+    padding: 16px;
+    margin: 12px 0;
+    overflow-x: auto;
+}
+
+code {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.9em;
+}
+
+.light pre {
+    background-color: #f1f3f4 !important;
+    border: 1px solid #dadce0;
+}

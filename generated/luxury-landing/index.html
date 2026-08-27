@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURELIA | Timeless Luxury & Exquisite Living</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            100: '#FBF7EE',
+                            200: '#F2E8D1',
+                            300: '#E5D1A6',
+                            400: '#D4AF37',
+                            500: '#C5A028',
+                            600: '#997B1A',
+                            700: '#735B13',
+                        },
+                        dark: {
+                            900: '#0A0A0A',
+                            800: '#121212',
+                            700: '#1A1A1A',
+                            600: '#262626',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        mono: ['Cinzel', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        .gold-gradient {
+            background: linear-gradient(135deg, #E5D1A6 0%, #D4AF37 50%, #997B1A 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gold-bg-gradient {
+            background: linear-gradient(135deg, #E5D1A6 0%, #D4AF37 50%, #997B1A 100%);
+        }
+        .gold-border {
+            border-image: linear-gradient(to bottom, #D4AF37, #1A1A1A) 1;
+        }
+        .glass-card {
+            background: rgba(18, 18, 18, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        .glass-nav {
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(20px);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0A0A0A;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D4AF37;
+            border-radius: 4px;
+        }
+        .hero-bg {
+            background-image: linear-gradient(to bottom, rgba(10,10,10,0.4), rgba(10,10,10,0.9)), url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2000&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="bg-dark-900 text-gray-200 font-sans antialiased selection:bg-gold-400 selection:text-dark-900">
+
+    <!-- Top Notification Bar -->
+    <div class="bg-dark-800 text-gold-300 text-xs py-2 px-4 text-center font-mono tracking-widest border-b border-gold-400/20">
+        EXCLUSIVELY PRIVATE RESIDENCES & VILLA COLLECTIONS • <a href="#contact" class="underline hover:text-white transition">INQUIRE FOR PRIVATE VIEWING</a>
+    </div>
+
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 glass-nav transition-all duration-300 border-b border-white/5 py-4">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
+            <a href="#" class="font-mono text-2xl md:text-3xl tracking-[0.25em] text-white font-bold">
+                AUR<span class="gold-gradient">E</span>LIA
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-10 font-mono text-xs tracking-[0.2em] text-gray-300">
+                <a href="#vision" class="hover:text-gold-400 transition">VISION</a>
+                <a href="#villas" class="hover:text-gold-400 transition">COLLECTION</a>
+                <a href="#amenities" class="hover:text-gold-400 transition">SERVICES</a>
+                <a href="#experience" class="hover:text-gold-400 transition">THE EXPERIENCE</a>
+                <a href="#journal" class="hover:text-gold-400 transition">JOURNAL</a>
+            </div>
+
+            <!-- CTA & Mobile Button -->
+            <div class="flex items-center space-x-4">
+                <a href="#contact" class="hidden sm:inline-block px-6 py-2.5 text-xs font-mono tracking-widest text-dark-900 gold-bg-gradient font-semibold hover:opacity-90 transition transform hover:scale-105">
+                    RESERVE PRIVATE TOUR
+                </a>
+                <button id="menu-btn" class="md:hidden text-gold-400 text-2xl focus:outline-none">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-dark-900/95 backdrop-blur-xl border-b border-gold-400/20 py-6 px-8 flex flex-col space-y-4 font-mono text-sm tracking-widest">
+            <a href="#vision" class="mobile-link hover:text-gold-400 transition py-2">VISION</a>
+            <a href="#villas" class="mobile-link hover:text-gold-400 transition py-2">COLLECTION</a>
+            <a href="#amenities" class="mobile-link hover:text-gold-400 transition py-2">SERVICES</a>
+            <a href="#experience" class="mobile-link hover:text-gold-400 transition py-2">THE EXPERIENCE</a>
+            <a href="#journal" class="mobile-link hover:text-gold-400 transition py-2">JOURNAL</a>
+            <a href="#contact" class="mobile-link text-center py-3 gold-bg-gradient text-dark-900 font-bold mt-2">RESERVE PRIVATE TOUR</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative min-h-screen hero-bg flex items-center justify-center text-center px-6 pt-24">
+        <div class="absolute inset-0 bg-gradient-to-t from-dark-900 via-transparent to-transparent"></div>
+        <div class="max-w-4xl mx-auto relative z-10" data-aos="fade-up" data-aos-duration="1200">
+            <span class="font-mono text-gold-400 tracking-[0.3em] text-xs md:text-sm uppercase mb-4 block">Ultra-Luxury Architectural Masterpieces</span>
+            <h1 class="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-normal text-white mb-6 leading-[1.1]">
+                Where Elegance <br>Meets <span class="italic gold-gradient font-light">Infinity</span>
+            </h1>
+            <p class="text-gray-300 font-light text-base md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
+                An exclusive sanctuary designed for the world’s most discerning connoisseurs of architecture, privacy, and bespoke living.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#villas" class="w-full sm:w-auto px-8 py-4 gold-bg-gradient text-dark-900 font-mono text-xs tracking-[0.2em] font-bold hover:opacity-90 transition shadow-2xl shadow-gold-400/20">
+                    EXPLORE RESIDENCES
+                </a>
+                <a href="#contact" class="w-full sm:w-auto px-8 py-4 border border-gold-400/40 text-gold-300 font-mono text-xs tracking-[0.2em] hover:bg-gold-400/10 transition">
+                    CONCIERGE INQUIRY
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll down indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 hidden md:flex flex-col items-center space-y-2 text-gold-400/60 font-mono text-xs tracking-widest animate-bounce">
+            <span>SCROLL</span>
+            <i class="fa-solid fa-chevron-down text-xs"></i>
+        </div>
+    </header>
+
+    <!-- Stats Bar -->
+    <section class="border-y border-gold-400/10 bg-dark-800/60 py-8 relative z-20">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div data-aos="fade-up" data-aos-delay="100">
+                <div class="font-serif text-3xl md:text-4xl text-white mb-1">07</div>
+                <div class="font-mono text-xs text-gold-400 tracking-[0.2em]">PRIVATE ESTATES</div>
+            </div>
+            <div data-aos="fade-up" data-aos-delay="200">
+                <div class="font-serif text-3xl md:text-4xl text-white mb-1">$45M+</div>
+                <div class="font-mono text-xs text-gold-400 tracking-[0.2em]">VALUATION START</div>
+            </div>
+            <div data-aos="fade-up" data-aos-delay="300">
+                <div class="font-serif text-3xl md:text-4xl text-white mb-1">100%</div>
+                <div class="font-mono text-xs text-gold-400 tracking-[0.2em]">ABSOLUTE PRIVACY</div>
+            </div>
+            <div data-aos="fade-up" data-aos-delay="400">
+                <div class="font-serif text-3xl md:text-4xl text-white mb-1">24/7</div>
+                <div class="font-mono text-xs text-gold-400 tracking-[0.2em]">DEDICATED BUTLER</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision Section -->
+    <section id="vision" class="py-24 md:py-36 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+            <div class="lg:col-span-6 space-y-8" data-aos="fade-right">
+                <span class="font-mono text-xs tracking-[0.3em] text-gold-400 uppercase">PHILOSOPHY OF DESIGN</span>
+                <h2 class="font-serif text-3xl sm:text-5xl text-white leading-tight">
+                    Crafted for those who demand the <span class="italic gold-gradient">extraordinary.</span>
+                </h2>
+                <p class="text-gray-400 font-light leading-relaxed">
+                    Aurelia is not merely a residence; it is a manifestation of prestige. Built with hand-selected Italian travertine, floor-to-ceiling smart glass, and private helipads, each villa seamlessly integrates into its pristine coastal cliffside environment.
+                </p>
+                <div class="grid grid-cols-2 gap-6 pt-4 border-t border-white/10">
+                    <div>
+                        <h4 class="font-mono text-gold-300 text-sm tracking-wider mb-2">Bespoke Interiors</h4>
+                        <p class="text-gray-500 text-xs leading-relaxed">Custom furnishings by Milanese master artisans tailored to your exact aesthetic.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-mono text-gold-300 text-sm tracking-wider mb-2">Unmatched Security</h4>
+                        <p class="text-gray-500 text-xs leading-relaxed">Military-grade biometric access paired with discreet 24-hour private security personnel.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="lg:col-span-6 relative" data-aos="fade-left">
+                <div class="absolute -top-4 -left-4 w-full h-full border border-gold-400/30 z-0 hidden sm:block"></div>
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80" alt="Luxury Interior" class="relative z-10 w-full h-[480px] object-cover shadow-2xl filter brightness-90">
+                <div class="absolute bottom-6 right-6 z-20 glass-card p-6 max-w-xs hidden sm:block">
+                    <p class="font-serif italic text-gold-300 text-sm mb-2">"True luxury is the luxury of absolute peace of mind and breathtaking beauty."</p>
+                    <span class="font-mono text-[10px] text-gray-400 tracking-widest">— LEAD ARCHITECT, AURELIA</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Villa Collection Section -->
+    <section id="villas" class="py-24 bg-dark-800/40 relative">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16">
+                <div data-aos="fade-up">
+                    <span class="font-mono text-xs tracking-[0.3em] text-gold-400 uppercase mb-3 block">THE PORTFOLIO</span>
+                    <h2 class="font-serif text-3xl sm:text-5xl text-white">Signature Residences</h2>
+                </div>
+                <p class="text-gray-400 text-sm max-w-md mt-4 md:mt-0 font-light" data-aos="fade-up" data-aos-delay="100">
+                    Each estate is unique in its topography and panorama, offering unmatched vistas of the azure sea and private yacht moorings.
+                </p>
+            </div>
+
+            <!-- Villa Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Villa 1 -->
+                <div class="glass-card group overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                    <div class="relative overflow-hidden h-72">
+                        <img src="https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=1000&q=80" alt="Villa Obsidian" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                        <div class="absolute top-4 right-4 bg-dark-900/80 backdrop-blur-md px-3 py-1 text-gold-400 font-mono text-xs tracking-widest border border-gold-400/30">
+                            RESERVED
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <span class="font-mono text-xs text-gold-400 tracking-[0.2em] block mb-2">ESTATE NO. 01</span>
+                        <h3 class="font-serif text-2xl text-white mb-3">The Obsidian Cliff</h3>
+                        <p class="text-gray-400 text-xs font-light mb-6 leading-relaxed">
+                            Featuring a cantilevered glass pool suspended 300 feet above the crashing waves and subterranean wine vault.
+                        </p>
+                        <div class="flex items-center justify-between pt-4 border-t border-white/10 font-mono text-xs">
+                            <span class="text-gray-400">12,500 SQ. FT.</span>
+                            <span class="text-gold-300 font-bold">$48,000,000</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Villa 2 -->
+                <div class="glass-card group overflow-hidden border-gold-400/40" data-aos="fade-up" data-aos-delay="200">
+                    <div class="relative overflow-hidden h-72">
+                        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1000&q=80" alt="Villa Solarium" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                        <div class="absolute top-4 right-4 bg-gold-500 text-dark-900 font-mono text-xs font-bold px-3 py-1 tracking-widest">
+                            AVAILABLE
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <span class="font-mono text-xs text-gold-400 tracking-[0.2em] block mb-2">ESTATE NO. 02</span>
+                        <h3 class="font-serif text-2xl text-white mb-3">Villa Solarium</h3>
+                        <p class="text-gray-400 text-xs font-light mb-6 leading-relaxed">
+                            Bathed in golden hour sunlight all day long. Includes private beach elevator and rooftop helipad.
+                        </p>
+                        <div class="flex items-center justify-between pt-4 border-t border-white/10 font-mono text-xs">
+                            <span class="text-gray-400">15,000 SQ. FT.</span>
+                            <span class="text-gold-300 font-bold">$55,000,000</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Villa 3 -->
+                <div class="glass-card group overflow-hidden" data-aos="fade-up" data-aos-delay="300">
+                    <div class="relative overflow-hidden h-72">
+                        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1000&q=80" alt="Villa Azure" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                        <div class="absolute top-4 right-4 bg-dark-900/80 backdrop-blur-md px-3 py-1 text-gold-400 font-mono text-xs tracking-widest border border-gold-400/30">
+                            AVAILABLE
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <span class="font-mono text-xs text-gold-400 tracking-[0.2em] block mb-2">ESTATE NO. 03</span>
+                        <h3 class="font-serif text-2xl text-white mb-3">The Azure Horizon</h3>
+                        <p class="text-gray-400 text-xs font-light mb-6 leading-relaxed">
+                            Minimalist Japanese-Zen botanical gardens combined with ultra-modern smart home automation.
+                        </p>
+                        <div class="flex items-center justify-between pt-4 border-t border-white/10 font-mono text-xs">
+                            <span class="text-gray-400">11,200 SQ. FT.</span>
+                            <span class="text-gold-300 font-bold">$42,500,000</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Amenities Section -->
+    <section id="amenities" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <div class="text-center max-w-2xl mx-auto mb-16" data-aos="fade-up">
+                <span class="font-mono text-xs tracking-[0.3em] text-gold-400 uppercase mb-3 block">BESPOKE AMENITIES</span>
+                <h2 class="font-serif text-3xl sm:text-5xl text-white mb-4">Curated for the Elite</h2>
+                <p class="text-gray-400 text-sm font-light">Every conceivable luxury provided seamlessly on-site, tailored to your schedule.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Amenity 1 -->
+                <div class="bg-dark-800/80 p-8 border border-white/5 hover:border-gold-400/40 transition duration-300 group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-12 h-12 rounded-none bg-gold-400/10 flex items-center justify-center text-gold-400 text-xl mb-6 group-hover:bg-gold-400 group-hover:text-dark-900 transition">
+                        <i class="fa-solid fa-helicopter"></i>
+                    </div>
+                    <h3 class="font-serif text-xl text-white mb-3">Private Helipad</h3>
+                    <p class="text-gray-400 text-xs font-light leading-relaxed">Direct 10-minute helicopter transit to international financial hubs and private airports.</p>
+                </div>
+
+                <!-- Amenity 2 -->
+                <div class="bg-dark-800/80 p-8 border border-white/5 hover:border-gold-400/40 transition duration-300 group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-12 h-12 rounded-none bg-gold-400/10 flex items-center justify-center text-gold-400 text-xl mb-6 group-hover:bg-gold-400 group-hover:text-dark-900 transition">
+                        <i class="fa-solid fa-anchor"></i>
+                    </div>
+                    <h3 class="font-serif text-xl text-white mb-3">Yacht Mooring</h3>
+                    <p class="text-gray-400 text-xs font-light leading-relaxed">Deep-water private marina accommodating mega-yachts up to 200 feet with full refueling.</p>
+                </div>
+
+                <!-- Amenity 3 -->
+                <div class="bg-dark-800/80 p-8 border border-white/5 hover:border-gold-400/40 transition duration-300 group" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-12 h-12 rounded-none bg-gold-400/10 flex items-center justify-center text-gold-400 text-xl mb-6 group-hover:bg-gold-400 group-hover:text-dark-900 transition">
+                        <i class="fa-solid fa-wine-glass"></i>
+                    </div>
+                    <h3 class="font-serif text-xl text-white mb-3">Sommelier Cellar</h3>
+                    <p class="text-gray-400 text-xs font-light leading-relaxed">Temperature and humidity controlled subterranean vaults stocked with premier vintage selections.</p>
+                </div>
+
+                <!-- Amenity 4 -->
+                <div class="bg-dark-800/80 p-8 border border-white/5 hover:border-gold-400/40 transition duration-300 group" data-aos="fade-up" data-aos-delay="400">
+                    <div class="w-12 h-12 rounded-none bg-gold-400/10 flex items-center justify-center text-gold-400 text-xl mb-6 group-hover:bg-gold-400 group-hover:text-dark-900 transition">
+                        <i class="fa-solid fa-spa"></i>
+                    </div>
+                    <h3 class="font-serif text-xl text-white mb-3">Wellness & Spa</h3>
+                    <p class="text-gray-400 text-xs font-light leading-relaxed">Private hydrotherapy pools, Finnish saunas, and resident wellness practitioners on call.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience / Gallery Showcase -->
+    <section id="experience" class="py-24 bg-dark-800/50 border-y border-gold-400/10">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16">
+                <div data-aos="fade-up">
+                    <span class="font-mono text-xs tracking-[0.3em] text-gold-400 uppercase mb-3 block">VISUAL GALLERY</span>
+                    <h2 class="font-serif text-3xl sm:text-5xl text-white">The Aurelia Lifestyle</h2>
+                </div>
+                <div class="mt-4 md:mt-0 flex space-x-2">
+                    <button onclick="changeGallery('all')" class="gallery-tab px-4 py-2 text-xs font-mono tracking-widest text-dark-900 gold-bg-gradient transition font-bold">ALL</button>
+                    <button onclick="changeGallery('interior')" class="gallery-tab px-4 py-2 text-xs font-mono tracking-widest text-gray-400 hover:text-white transition">INTERIOR</button>
+                    <button onclick="changeGallery('exterior')" class="gallery-tab px-4 py-2 text-xs font-mono tracking-widest text-gray-400 hover:text-white transition">EXTERIOR</button>
+                </div>
+            </div>
+
+            <!-- Gallery Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="gallery-grid">
+                <div class="relative h-80 group overflow-hidden" data-category="exterior">
+                    <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1000&q=80" alt="Exterior" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark-900/90 via-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-6">
+                        <span class="font-mono text-xs text-gold-300 tracking-widest">CLIFFSIDE INFINITY POOL</span>
+                    </div>
+                </div>
+                <div class="relative h-80 group overflow-hidden" data-category="interior">
+                    <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1000&q=80" alt="Living Room" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark-900/90 via-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-6">
+                        <span class="font-mono text-xs text-gold-300 tracking-widest">PANORAMIC LIVING SALON</span>
+                    </div>
+                </div>
+                <div class="relative h-80 group overflow-hidden" data-category="exterior">
+                    <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1000&q=80" alt="Architecture" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark-900/90 via-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-6">
+                        <span class="font-mono text-xs text-gold-300 tracking-widest">MODERNIST FACADE</span>
+                    </div>
+                </div>
+                <div class="relative h-80 group overflow-hidden" data-category="interior">
+                    <img src="https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1000&q=80" alt="Kitchen" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark-900/90 via-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-6">
+                        <span class="font-mono text-xs text-gold-300 tracking-widest">CHEF'S CULINARY SUITE</span>
+                    </div>
+                </div>
+                <div class="relative h-80 group overflow-hidden" data-category="interior">
+                    <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1000&q=80" alt="Bedroom" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark-900/90 via-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-6">
+                        <span class="font-mono text-xs text-gold-300 tracking-widest">MASTER OCEAN SUITE</span>
+                    </div>
+                </div>
+                <div class="relative h-80 group overflow-hidden" data-category="exterior">
+                    <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1000&q=80" alt="Sunset" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark-900/90 via-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-6">
+                        <span class="font-mono text-xs text-gold-300 tracking-widest">DUSK PANORAMA</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Journal Section -->
+    <section id="journal" class="py-24">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16">
+                <div data-aos="fade-up">
+                    <span class="font-mono text-xs tracking-[0.3em] text-gold-400 uppercase mb-3 block">THE JOURNAL</span>
+                    <h2 class="font-serif text-3xl sm:text-5xl text-white">Insights & Architectural Press</h2>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <article class="glass-card overflow-hidden group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" alt="Article 1" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-6">
+                        <span class="font-mono text-[10px] text-gold-400 tracking-widest uppercase mb-2 block">OCTOBER 14, 2023 • ARCHITECTURE</span>
+                        <h3 class="font-serif text-xl text-white mb-3 hover:text-gold-400 transition cursor-pointer">The Revival of Brutalist Luxury in Coastal Sanctuaries</h3>
+                        <p class="text-gray-400 text-xs font-light line-clamp-3">Examining how raw concrete and expansive glass unite to create invincible yet poetic cliffside homes.</p>
+                    </div>
+                </article>
+
+                <article class="glass-card overflow-hidden group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80" alt="Article 2" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-6">
+                        <span class="font-mono text-[10px] text-gold-400 tracking-widest uppercase mb-2 block">SEPTEMBER 28, 2023 • DESIGN</span>
+                        <h3 class="font-serif text-xl text-white mb-3 hover:text-gold-400 transition cursor-pointer">Bespoke Italian Interiors: The Milan Connection</h3>
+                        <p class="text-gray-400 text-xs font-light line-clamp-3">Inside the artisan workshops crafting custom bronze fixtures and marble surfaces exclusively for Aurelia.</p>
+                    </div>
+                </article>
+
+                <article class="glass-card overflow-hidden group" data-aos="fade-up" data-aos-delay="300">
+                    <div class="h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=800&q=80" alt="Article 3" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-6">
+                        <span class="font-mono text-[10px] text-gold-400 tracking-widest uppercase mb-2 block">AUGUST 12, 2023 • LIFESTYLE</span>
+                        <h3 class="font-serif text-xl text-white mb-3 hover:text-gold-400 transition cursor-pointer">The Art of Absolute Privacy in Ultra-Prime Real Estate</h3>
+                        <p class="text-gray-400 text-xs font-light line-clamp-3">How modern encryption, private air routes, and secure geography redefine sanctuary for global leaders.</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Concierge / Contact Section -->
+    <section id="contact" class="py-24 bg-dark-800/80 relative border-t border-gold-400/20">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div class="lg:col-span-6 space-y-6" data-aos="fade-right">
+                <span class="font-mono text-xs tracking-[0.3em] text-gold-400 uppercase">PRIVATE CONCIERGE</span>
+                <h2 class="font-serif text-3xl sm:text-5xl text-white">Arrange Your Private Viewing</h2>
+                <p class="text-gray-400 font-light text-sm leading-relaxed">
+                    Access to Aurelia residences is strictly confidential. Please submit your credentials or contact our senior partner directly to coordinate a private helicopter or yacht tour.
+                </p>
+                <div class="space-y-4 pt-4 font-mono text-xs text-gray-300">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-8 h-8 rounded-full bg-gold-400/10 flex items-center justify-center text-gold-400">
+                            <i class="fa-solid fa-phone"></i>
+                        </div>
+                        <span>+1 (800) 948-3542 (Direct Concierge)</span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="w-8 h-8 rounded-full bg-gold-400/10 flex items-center justify-center text-gold-400">
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
+                        <span>concierge@aurelia-residences.com</span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="w-8 h-8 rounded-full bg-gold-400/10 flex items-center justify-center text-gold-400">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+                        <span>Via Della Spiga 22, Milan / Monaco / Beverly Hills</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Card -->
+            <div class="lg:col-span-6 glass-card p-8 md:p-10 relative" data-aos="fade-left">
+                <h3 class="font-serif text-2xl text-white mb-6">Confidential Inquiry Form</h3>
+                <form id="inquiry-form" class="space-y-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block font-mono text-xs text-gold-400 tracking-wider mb-2">FULL NAME *</label>
+                            <input type="text" required class="w-full bg-dark-900 border border-gold-400/20 px-4 py-3 text-white text-sm focus:outline-none focus:border-gold-400 transition" placeholder="Lord / Lady / Mr.">
+                        </div>
+                        <div>
+                            <label class="block font-mono text-xs text-gold-400 tracking-wider mb-2">SECURE EMAIL *</label>
+                            <input type="email" required class="w-full bg-dark-900 border border-gold-400/20 px-4 py-3 text-white text-sm focus:outline-none focus:border-gold-400 transition" placeholder="name@domain.com">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block font-mono text-xs text-gold-400 tracking-wider mb-2">PHONE / WHATSAPP</label>
+                            <input type="tel" class="w-full bg-dark-900 border border-gold-400/20 px-4 py-3 text-white text-sm focus:outline-none focus:border-gold-400 transition" placeholder="+1 ...">
+                        </div>
+                        <div>
+                            <label class="block font-mono text-xs text-gold-400 tracking-wider mb-2">PREFERRED VILLA</label>
+                            <select class="w-full bg-dark-900 border border-gold-400/20 px-4 py-3 text-white text-sm focus:outline-none focus:border-gold-400 transition">
+                                <option>The Obsidian Cliff ($48M)</option>
+                                <option>Villa Solarium ($55M)</option>
+                                <option>The Azure Horizon ($42.5M)</option>
+                                <option>General Portfolio Inquiry</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block font-mono text-xs text-gold-400 tracking-wider mb-2">MESSAGE / SPECIAL REQUIREMENTS</label>
+                        <textarea rows="4" class="w-full bg-dark-900 border border-gold-400/20 px-4 py-3 text-white text-sm focus:outline-none focus:border-gold-400 transition" placeholder="Helicopter arrival details, security clearances..."></textarea>
+                    </div>
+                    <button type="submit" class="w-full py-4 gold-bg-gradient text-dark-900 font-mono text-xs font-bold tracking-[0.2em] hover:opacity-90 transition">
+                        SUBMIT PRIVATE REQUEST
+                    </button>
+                </form>
+                <!-- Success Message Box -->
+                <div id="success-msg" class="hidden absolute inset-0 bg-dark-900/95 backdrop-blur-xl p-10 flex flex-col items-center justify-center text-center">
+                    <div class="w-16 h-16 rounded-full bg-gold-400/20 flex items-center justify-center text-gold-400 text-3xl mb-4">
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+                    <h4 class="font-serif text-2xl text-white mb-2">Inquiry Received</h4>
+                    <p class="text-gray-400 text-xs font-light max-w-sm mb-6">Our senior partner will reach out to you via secure channels within 2 hours.</p>
+                    <button onclick="resetForm()" class="px-6 py-2 border border-gold-400/40 text-gold-300 font-mono text-xs tracking-widest hover:bg-gold-400/10 transition">CLOSE</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark-900 border-t border-white/5 py-16 text-gray-400 text-xs font-mono">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+            <div class="space-y-4">
+                <a href="#" class="font-mono text-2xl tracking-[0.25em] text-white font-bold block">
+                    AUR<span class="gold-gradient">E</span>LIA
+                </a>
+                <p class="text-gray-500 font-sans text-xs leading-relaxed">
+                    The pinnacle of global ultra-luxury architecture and private estate ownership.
+                </p>
+            </div>
+            <div>
+                <h4 class="text-white tracking-widest mb-4">RESIDENCES</h4>
+                <ul class="space-y-2 text-gray-500">
+                    <li><a href="#villas" class="hover:text-gold-400 transition">The Obsidian Cliff</a></li>
+                    <li><a href="#villas" class="hover:text-gold-400 transition">Villa Solarium</a></li>
+                    <li><a href="#villas" class="hover:text-gold-400 transition">The Azure Horizon</a></li>
+                    <li><a href="#villas" class="hover:text-gold-400 transition">Custom Arch Projects</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white tracking-widest mb-4">CONCIERGE</h4>
+                <ul class="space-y-2 text-gray-500">
+                    <li><a href="#contact" class="hover:text-gold-400 transition">Private Aviation</a></li>
+                    <li><a href="#contact" class="hover:text-gold-400 transition">Yacht Charter</a></li>
+                    <li><a href="#contact" class="hover:text-gold-400 transition">Security Protocols</a></li>
+                    <li><a href="#contact" class="hover:text-gold-400 transition">Private Viewings</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white tracking-widest mb-4">NEWSLETTER</h4>
+                <p class="text-gray-500 text-[11px] mb-4">Receive confidential updates on new architectural offerings.</p>
+                <div class="flex">
+                    <input type="email" placeholder="Email address" class="bg-dark-800 border border-white/10 px-3 py-2 text-white text-xs w-full focus:outline-none focus:border-gold-400">
+                    <button class="gold-bg-gradient px-4 text-dark-900 font-bold"><i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 md:px-12 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between text-gray-600 text-[11px]">
+            <p>© 2024 AURELIA ESTATES INTERNATIONAL. ALL RIGHTS RESERVED.</p>
+            <div class="flex space-x-6 mt-4 md:mt-0">
+                <a href="#" class="hover:text-gray-400 transition">PRIVACY POLICY</a>
+                <a href="#" class="hover:text-gray-400 transition">TERMS OF CONFIDENTIALITY</a>
+                <a href="#" class="hover:text-gray-400 transition">LEGAL NOTICE</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AOS Animation Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            once: true,
+            offset: 50,
+            duration: 800,
+        });
+
+        // Mobile menu toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Gallery Filter
+        function changeGallery(category) {
+            const tabs = document.querySelectorAll('.gallery-tab');
+            tabs.forEach(tab => {
+                tab.classList.remove('gold-bg-gradient', 'text-dark-900', 'font-bold');
+                tab.classList.add('text-gray-400');
+            });
+            event.target.classList.add('gold-bg-gradient', 'text-dark-900', 'font-bold');
+            event.target.classList.remove('text-gray-400');
+
+            const items = document.querySelectorAll('#gallery-grid > div');
+            items.forEach(item => {
+                if(category === 'all' || item.getAttribute('data-category') === category) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Form submission simulation
+        const form = document.getElementById('inquiry-form');
+        const successMsg = document.getElementById('success-msg');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            successMsg.classList.remove('hidden');
+        });
+
+        function resetForm() {
+            form.reset();
+            successMsg.classList.add('hidden');
+        }
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if(window.scrollY > 50) {
+                nav.classList.add('py-3');
+                nav.classList.remove('py-4');
+            } else {
+                nav.classList.add('py-4');
+                nav.classList.remove('py-3');
+            }
+        });
+    </script>
+</body>
+</html>
