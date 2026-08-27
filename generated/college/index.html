@@ -1,582 +1,407 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="veritas">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Veritas University | Empowering Future Leaders, Innovators & Scholars</title>
-    <meta name="description" content="Veritas University is a top-ranked global institution offering undergraduate, graduate, and research programs in Engineering, Business, Medicine, and Humanities.">
+    <title>Apex Institute of Technology & Sciences</title>
+    <link rel="stylesheet" href="college/style.css">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Top Utility Announcement Header -->
-    <div class="top-utility-bar">
-        <div class="container flex-between">
-            <div class="utility-announcement">
-                <span class="badge-gold">ADMISSIONS 2025</span>
-                <span>Applications for Fall 2025 are now open. Priority Deadline: Dec 1.</span>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container top-bar-content">
+            <div class="contact-info">
+                <span><i class="fa-solid fa-phone"></i> +1 (555) 849-2900</span>
+                <span><i class="fa-solid fa-envelope"></i> admissions@apex.edu</span>
             </div>
-            <div class="utility-links">
-                <a href="#aid-calculator"><i class="fa-solid fa-calculator"></i> Tuition Estimator</a>
-                <a href="#" id="virtual-tour-btn"><i class="fa-solid fa-compass"></i> Virtual Campus Tour</a>
-                <a href="#" id="open-portal-link"><i class="fa-solid fa-lock"></i> MyVeritas Portal</a>
-                <button class="lang-selector-btn" id="lang-btn"><i class="fa-solid fa-globe"></i> EN</button>
+            <div class="portal-links">
+                <a href="#portal" class="portal-link"><i class="fa-solid fa-user-graduate"></i> Student Portal</a>
+                <a href="#portal" class="portal-link"><i class="fa-solid fa-chalkboard-user"></i> Faculty Portal</a>
+                <div class="theme-switch" id="themeSwitch" title="Toggle Light/Dark Mode">
+                    <i class="fa-solid fa-moon"></i>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Main Navigation Bar -->
-    <header class="main-header" id="main-header">
-        <div class="container header-container">
-            <a href="#home" class="uni-brand">
-                <div class="brand-crest">
-                    <i class="fa-solid fa-graduation-cap"></i>
-                </div>
-                <div class="brand-names">
-                    <span class="uni-name-title">VERITAS</span>
-                    <span class="uni-sub-title">UNIVERSITY • EST. 1892</span>
+    <!-- Navigation Header -->
+    <header class="header" id="header">
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <div class="logo-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                <div class="logo-text">
+                    <h1>APEX</h1>
+                    <span>Institute of Technology</span>
                 </div>
             </a>
-
-            <nav class="nav-menu" id="nav-menu">
-                <ul class="nav-list">
-                    <li><a href="#home" class="nav-link active">Home</a></li>
-                    <li><a href="#programs" class="nav-link">Academics</a></li>
-                    <li><a href="#admissions" class="nav-link">Admissions</a></li>
-                    <li><a href="#aid-calculator" class="nav-link">Tuition & Aid</a></li>
-                    <li><a href="#campus-life" class="nav-link">Campus Life</a></li>
-                    <li><a href="#research" class="nav-link">Research</a></li>
-                    <li><a href="#news-events" class="nav-link">News & Events</a></li>
+            <nav class="nav-menu" id="navMenu">
+                <ul>
+                    <li><a href="#home" class="active">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#academics">Academics</a></li>
+                    <li><a href="#admissions">Admissions</a></li>
+                    <li><a href="#campus">Campus Life</a></li>
+                    <li><a href="#contact">Contact</a></li>
                 </ul>
             </nav>
-
-            <div class="header-actions">
-                <button class="btn btn-gold btn-sm" id="apply-now-btn">
-                    <i class="fa-solid fa-paper-plane"></i> Apply Now
-                </button>
-                <button class="hamburger-btn" id="hamburger-btn" aria-label="Toggle Navigation">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+            <div class="nav-actions">
+                <a href="#admissions" class="btn btn-primary">Apply Now</a>
+                <button class="mobile-toggle" id="mobileToggle">
+                    <i class="fa-solid fa-bars"></i>
                 </button>
             </div>
         </div>
     </header>
 
-    <main>
-        <!-- Hero Section -->
-        <section id="home" class="hero-section">
-            <div class="hero-overlay"></div>
-            <div class="container hero-container">
-                <div class="hero-badge">
-                    <i class="fa-solid fa-award"></i> Ranked #14 National Research University
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+            <div class="hero-badge">
+                <i class="fa-solid fa-award"></i> Ranked #1 Innovation University 2024
+            </div>
+            <h1>Shape Your Future at <span class="highlight">Apex Institute</span></h1>
+            <p>Empowering tomorrow's leaders, innovators, and researchers through world-class education, cutting-edge laboratories, and holistic campus experiences.</p>
+            <div class="hero-btns">
+                <a href="#academics" class="btn btn-primary btn-lg">Explore Programs <i class="fa-solid fa-arrow-right"></i></a>
+                <a href="#campus" class="btn btn-outline btn-lg">Virtual Campus Tour</a>
+            </div>
+            
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <h3>98%</h3>
+                    <p>Placement Rate</p>
                 </div>
+                <div class="stat-item">
+                    <h3>150+</h3>
+                    <p>Global Partners</p>
+                </div>
+                <div class="stat-item">
+                    <h3>$45M</h3>
+                    <p>Research Grants</p>
+                </div>
+                <div class="stat-item">
+                    <h3>25,000+</h3>
+                    <p>Alumni Network</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-                <h1 class="hero-title">
-                    INNOVATE. DISCOVER. <br>
-                    <span class="highlight-gold">LEAD THE FUTURE.</span>
-                </h1>
-
-                <p class="hero-subtitle">
-                    Join a community of groundbreaking scholars, global thinkers, and world-changing researchers spanning over 120 undergraduate and graduate degree programs.
-                </p>
-
-                <!-- Program Search Widget -->
-                <div class="hero-search-box">
-                    <div class="search-field">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                        <input type="text" id="hero-program-search" placeholder="What do you want to study? (e.g. Computer Science, Medicine, Law, Finance)...">
+    <!-- About Section -->
+    <section class="section about" id="about">
+        <div class="container">
+            <div class="section-header">
+                <span class="sub-title">About Apex</span>
+                <h2>A Legacy of Academic Excellence & Innovation</h2>
+            </div>
+            <div class="about-grid">
+                <div class="about-images">
+                    <div class="img-box main-img">
+                        <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=800&q=80" alt="Students on campus">
                     </div>
-                    <select id="hero-degree-level" class="search-select">
-                        <option value="all">All Degrees</option>
-                        <option value="undergraduate">Undergraduate (B.S./B.A.)</option>
-                        <option value="graduate">Graduate (M.S./Ph.D.)</option>
-                        <option value="online">Online / Certificate</option>
-                    </select>
-                    <button class="btn btn-crimson" id="hero-search-btn">Find Programs</button>
-                </div>
-
-                <!-- Hero Action Buttons -->
-                <div class="hero-actions">
-                    <a href="#programs" class="btn btn-outline-light"><i class="fa-solid fa-book-open"></i> Explore Programs</a>
-                    <button class="btn btn-outline-gold" id="request-info-btn"><i class="fa-solid fa-circle-info"></i> Request Info Packet</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- Stats Counter Bar -->
-        <section class="stats-section">
-            <div class="container stats-grid">
-                <div class="stat-card">
-                    <div class="stat-number" data-target="98.6" data-decimals="1">0</div>
-                    <span class="stat-unit">%</span>
-                    <p class="stat-label">Career Placement Rate</p>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number" data-target="18000">0</div>
-                    <span class="stat-unit">+</span>
-                    <p class="stat-label">Students Worldwide</p>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number" data-target="12">0</div>
-                    <span class="stat-unit">:1</span>
-                    <p class="stat-label">Student-to-Faculty Ratio</p>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number" data-target="240">0</div>
-                    <span class="stat-unit">M</span>
-                    <p class="stat-label">Annual Research Grants ($)</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Academic Programs & Majors Section -->
-        <section id="programs" class="section programs-section">
-            <div class="container">
-                <div class="section-title-wrapper text-center">
-                    <span class="sub-title"><i class="fa-solid fa-graduation-cap"></i> ACADEMIC EXCELLENCE</span>
-                    <h2 class="main-title">DEGREE <span class="highlight-crimson">PROGRAMS & MAJORS</span></h2>
-                    <p class="section-desc">World-renowned faculty, state-of-the-art laboratories, and experiential learning.</p>
-                </div>
-
-                <!-- Category Filters -->
-                <div class="program-filters" id="program-filters">
-                    <button class="filter-pill active" data-filter="all">All Disciplines</button>
-                    <button class="filter-pill" data-filter="stem">STEM & Engineering</button>
-                    <button class="filter-pill" data-filter="business">Business & Economics</button>
-                    <button class="filter-pill" data-filter="health">Medicine & Health Sciences</button>
-                    <button class="filter-pill" data-filter="arts">Arts & Humanities</button>
-                    <button class="filter-pill" data-filter="law">Law & Policy</button>
-                </div>
-
-                <!-- Programs Grid -->
-                <div class="programs-grid" id="programs-grid">
-                    <!-- Populated dynamically via JS -->
-                </div>
-            </div>
-        </section>
-
-        <!-- Tuition & Financial Aid Estimator Tool -->
-        <section id="aid-calculator" class="section calc-section">
-            <div class="container">
-                <div class="calc-box-wrapper">
-                    <div class="calc-header-text text-center">
-                        <span class="sub-title"><i class="fa-solid fa-calculator"></i> TRANSPARENT INVESTMENTS</span>
-                        <h2 class="main-title">TUITION & FINANCIAL <span class="highlight-gold">AID ESTIMATOR</span></h2>
-                        <p>Calculate your estimated net cost of attendance including merit aid and housing options.</p>
+                    <div class="img-box sub-img">
+                        <img src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=600&q=80" alt="Modern library">
                     </div>
-
-                    <div class="calc-interactive-grid">
-                        <!-- Inputs Form -->
-                        <div class="calc-form-side">
-                            <div class="form-group">
-                                <label><i class="fa-solid fa-earth-americas"></i> Residency Status</label>
-                                <select id="residency-type" class="form-input">
-                                    <option value="in-state">In-State Resident ($14,200/yr base)</option>
-                                    <option value="out-state" selected>Out-of-State Resident ($38,500/yr base)</option>
-                                    <option value="international">International Student ($42,000/yr base)</option>
-                                </select>
+                    <div class="experience-badge">
+                        <span>50+</span>
+                        <p>Years of Excellence</p>
+                    </div>
+                </div>
+                <div class="about-content">
+                    <h3>Where Curiosity Meets Discovery</h3>
+                    <p>Founded in 1974, Apex Institute has grown into a premier hub for multidisciplinary education. We foster an environment where rigorous academics collide with practical ingenuity, preparing students to tackle complex global challenges.</p>
+                    
+                    <div class="features-list">
+                        <div class="feature-row">
+                            <div class="feature-icon"><i class="fa-solid fa-flask-vial"></i></div>
+                            <div>
+                                <h4>State-of-the-Art Labs</h4>
+                                <p>Access advanced AI, robotics, biotechnology, and clean energy research facilities.</p>
                             </div>
-
-                            <div class="form-group">
-                                <label><i class="fa-solid fa-building-columns"></i> Academic Degree Level</label>
-                                <select id="degree-level" class="form-input">
-                                    <option value="undergrad">Undergraduate Degree (4 Years)</option>
-                                    <option value="grad">Graduate / Master's Program (2 Years)</option>
-                                    <option value="phd">Ph.D. / Doctoral Research (Fully Funded Options)</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label><i class="fa-solid fa-house"></i> Campus Housing Arrangement</label>
-                                <select id="housing-type" class="form-input">
-                                    <option value="on-campus">On-Campus Residence Hall & Meal Plan ($12,800/yr)</option>
-                                    <option value="off-campus">Off-Campus Apartment ($9,500/yr)</option>
-                                    <option value="commuter">Commuter (Living at Home) ($1,200/yr transportation)</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label><i class="fa-solid fa-award"></i> Estimated High School GPA / Academic Merit</label>
-                                <select id="gpa-tier" class="form-input">
-                                    <option value="presidential">3.85 - 4.0 GPA (Presidential Merit Scholarship: -$12,000/yr)</option>
-                                    <option value="provost" selected>3.50 - 3.84 GPA (Provost Excellence Scholarship: -$7,500/yr)</option>
-                                    <option value="dean">3.20 - 3.49 GPA (Dean's Achievement Award: -$4,000/yr)</option>
-                                    <option value="standard">&lt; 3.20 GPA (Standard Need-Based Aid Available)</option>
-                                </select>
-                            </div>
-
-                            <button class="btn btn-crimson btn-block" id="calculate-aid-btn">
-                                <i class="fa-solid fa-chart-pie"></i> Calculate Net Estimated Cost
-                            </button>
                         </div>
-
-                        <!-- Results Side -->
-                        <div class="calc-result-side">
-                            <div class="result-breakdown-card">
-                                <h3>ESTIMATED ANNUAL NET COST</h3>
-                                <div class="net-cost-price" id="net-cost-display">$31,300</div>
-                                <p class="cost-subtext">Per Academic Year (2 Semesters)</p>
-
-                                <div class="breakdown-list">
-                                    <div class="breakdown-row">
-                                        <span>Tuition & Mandatory Fees</span>
-                                        <strong id="cost-tuition">$38,500</strong>
-                                    </div>
-                                    <div class="breakdown-row">
-                                        <span>Housing & Dining Plan</span>
-                                        <strong id="cost-housing">$12,800</strong>
-                                    </div>
-                                    <div class="breakdown-row text-green">
-                                        <span>Est. Merit Scholarship Aid</span>
-                                        <strong id="cost-aid">-$7,500</strong>
-                                    </div>
-                                    <div class="breakdown-row text-green">
-                                        <span>Est. Work-Study & Grants</span>
-                                        <strong id="cost-grant">-$12,500</strong>
-                                    </div>
-                                </div>
-
-                                <div class="aid-cta-box">
-                                    <button class="btn btn-gold btn-block" id="apply-aid-btn">
-                                        <i class="fa-solid fa-hand-holding-dollar"></i> Apply for Financial Aid (FAFSA)
-                                    </button>
-                                </div>
+                        <div class="feature-row">
+                            <div class="feature-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
+                            <div>
+                                <h4>World-Class Faculty</h4>
+                                <p>Learn directly from industry pioneers, Nobel laureates, and renowned researchers.</p>
+                            </div>
+                        </div>
+                        <div class="feature-row">
+                            <div class="feature-icon"><i class="fa-solid fa-briefcase"></i></div>
+                            <div>
+                                <h4>Industry Integration</h4>
+                                <p>Guaranteed internships and capstone projects with Fortune 500 tech and engineering giants.</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Admissions Roadmap -->
-        <section id="admissions" class="section admissions-section">
-            <div class="container">
-                <div class="section-title-wrapper text-center">
-                    <span class="sub-title"><i class="fa-regular fa-calendar-check"></i> YOUR JOURNEY STARTS HERE</span>
-                    <h2 class="main-title">ADMISSIONS <span class="highlight-crimson">ROADMAP & DEADLINES</span></h2>
+    <!-- Academics / Programs Section -->
+    <section class="section academics" id="academics">
+        <div class="container">
+            <div class="section-header">
+                <span class="sub-title">Academic Programs</span>
+                <h2>Discover Your Path to Success</h2>
+                <p>Choose from our comprehensive undergraduate, graduate, and doctoral programs.</p>
+            </div>
+
+            <div class="program-filters">
+                <button class="filter-btn active" data-filter="all">All Programs</button>
+                <button class="filter-btn" data-filter="engineering">Engineering & Tech</button>
+                <button class="filter-btn" data-filter="business">Business & Management</button>
+                <button class="filter-btn" data-filter="science">Applied Sciences</button>
+                <button class="filter-btn" data-filter="arts">Design & Arts</button>
+            </div>
+
+            <div class="programs-grid">
+                <!-- Program 1 -->
+                <div class="program-card" data-category="engineering">
+                    <div class="program-img" style="background-image: url('https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80')">
+                        <span class="program-tag">B.Tech / M.Tech</span>
+                    </div>
+                    <div class="program-body">
+                        <h3>Computer Science & AI</h3>
+                        <p>Master machine learning, neural networks, cloud computing, and software architecture.</p>
+                        <div class="program-meta">
+                            <span><i class="fa-regular fa-clock"></i> 4 Years</span>
+                            <span><i class="fa-solid fa-graduation-cap"></i> Full Time</span>
+                        </div>
+                        <a href="#admissions" class="program-link">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
                 </div>
 
-                <div class="roadmap-timeline">
-                    <div class="timeline-step">
-                        <div class="step-num">01</div>
-                        <div class="step-content">
-                            <span class="step-date">NOV 1, 2024</span>
-                            <h4>Early Action & Early Decision</h4>
-                            <p>Non-binding early decision deadline. Priority consideration for honors college and top merit scholarships.</p>
-                        </div>
+                <!-- Program 2 -->
+                <div class="program-card" data-category="business">
+                    <div class="program-img" style="background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80')">
+                        <span class="program-tag">MBA / BBA</span>
                     </div>
-
-                    <div class="timeline-step">
-                        <div class="step-num">02</div>
-                        <div class="step-content">
-                            <span class="step-date">DEC 1, 2024</span>
-                            <h4>Regular Decision Priority</h4>
-                            <p>Standard application deadline for Fall enrollment and general housing priority allocation.</p>
+                    <div class="program-body">
+                        <h3>Global Business Administration</h3>
+                        <p>Develop strategic leadership, financial acumen, and entrepreneurial expertise in global markets.</p>
+                        <div class="program-meta">
+                            <span><i class="fa-regular fa-clock"></i> 2 - 4 Years</span>
+                            <span><i class="fa-solid fa-graduation-cap"></i> Full / Part Time</span>
                         </div>
+                        <a href="#admissions" class="program-link">Learn More <i class="fa-solid fa-arrow-right"></i></a>
                     </div>
+                </div>
 
-                    <div class="timeline-step">
-                        <div class="step-num">03</div>
-                        <div class="step-content">
-                            <span class="step-date">FEB 15, 2025</span>
-                            <h4>FAFSA & Financial Aid Deadline</h4>
-                            <p>Submit FAFSA and CSS Profile to maximize state, federal, and institutional grant aid packages.</p>
-                        </div>
+                <!-- Program 3 -->
+                <div class="program-card" data-category="engineering">
+                    <div class="program-img" style="background-image: url('https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=600&q=80')">
+                        <span class="program-tag">B.Tech</span>
                     </div>
-
-                    <div class="timeline-step">
-                        <div class="step-num">04</div>
-                        <div class="step-content">
-                            <span class="step-date">MAY 1, 2025</span>
-                            <h4>National Decision Day</h4>
-                            <p>Submit your enrollment deposit, reserve your housing suite, and register for summer orientation!</p>
+                    <div class="program-body">
+                        <h3>Robotics & Mechatronics</h3>
+                        <p>Design autonomous systems, industrial automation machinery, and smart IoT hardware.</p>
+                        <div class="program-meta">
+                            <span><i class="fa-regular fa-clock"></i> 4 Years</span>
+                            <span><i class="fa-solid fa-graduation-cap"></i> Full Time</span>
                         </div>
+                        <a href="#admissions" class="program-link">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Program 4 -->
+                <div class="program-card" data-category="science">
+                    <div class="program-img" style="background-image: url('https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=600&q=80')">
+                        <span class="program-tag">B.Sc / M.Sc</span>
+                    </div>
+                    <div class="program-body">
+                        <h3>Biotechnology & Genomics</h3>
+                        <p>Explore genetic engineering, bioinformatics, molecular diagnostics, and pharmacology.</p>
+                        <div class="program-meta">
+                            <span><i class="fa-regular fa-clock"></i> 3 - 4 Years</span>
+                            <span><i class="fa-solid fa-graduation-cap"></i> Full Time</span>
+                        </div>
+                        <a href="#admissions" class="program-link">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Program 5 -->
+                <div class="program-card" data-category="arts">
+                    <div class="program-img" style="background-image: url('https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?auto=format&fit=crop&w=600&q=80')">
+                        <span class="program-tag">B.Des</span>
+                    </div>
+                    <div class="program-body">
+                        <h3>UI/UX & Interactive Design</h3>
+                        <p>Create human-centered digital experiences, immersive 3D environments, and brand identities.</p>
+                        <div class="program-meta">
+                            <span><i class="fa-regular fa-clock"></i> 4 Years</span>
+                            <span><i class="fa-solid fa-graduation-cap"></i> Full Time</span>
+                        </div>
+                        <a href="#admissions" class="program-link">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Program 6 -->
+                <div class="program-card" data-category="business">
+                    <div class="program-img" style="background-image: url('https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=600&q=80')">
+                        <span class="program-tag">Executive</span>
+                    </div>
+                    <div class="program-body">
+                        <h3>Fintech & Data Analytics</h3>
+                        <p>Master blockchain, quantitative finance, big data pipelines, and predictive risk modelling.</p>
+                        <div class="program-meta">
+                            <span><i class="fa-regular fa-clock"></i> 2 Years</span>
+                            <span><i class="fa-solid fa-graduation-cap"></i> Hybrid</span>
+                        </div>
+                        <a href="#admissions" class="program-link">Learn More <i class="fa-solid fa-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Campus Life & Interactive Facilities Showcase -->
-        <section id="campus-life" class="section campus-section">
-            <div class="container">
-                <div class="section-title-wrapper text-center">
-                    <span class="sub-title"><i class="fa-solid fa-tree"></i> VIBRANT COMMUNITY</span>
-                    <h2 class="main-title">CAMPUS LIFE & <span class="highlight-gold">FACILITIES</span></h2>
-                    <p class="section-desc">Experience a thriving 250-acre campus equipped with cutting-edge learning spaces and active student organizations.</p>
+    <!-- Campus Life Section -->
+    <section class="section campus" id="campus">
+        <div class="container">
+            <div class="section-header">
+                <span class="sub-title">Campus Life</span>
+                <h2>Vibrant, Inclusive & Dynamic Community</h2>
+                <p>Life at Apex extends far beyond lecture halls with 60+ student clubs, sports leagues, and cultural festivals.</p>
+            </div>
+
+            <div class="campus-slider">
+                <div class="campus-slide active" style="background-image: url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1200&q=80')">
+                    <div class="slide-caption">
+                        <h3>Modern Residential Dormitories</h3>
+                        <p>Comfortable, secure, and fully equipped smart-living spaces for all students.</p>
+                    </div>
+                </div>
+                <div class="campus-slide" style="background-image: url('https://images.unsplash.com/photo-1576495199011-eb94736d05d6?auto=format&fit=crop&w=1200&q=80')">
+                    <div class="slide-caption">
+                        <h3>Olympic Sports Complex</h3>
+                        <p>Indoor stadiums, swimming pools, tennis courts, and fitness studios.</p>
+                    </div>
+                </div>
+                <div class="campus-slide" style="background-image: url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=1200&q=80')">
+                    <div class="slide-caption">
+                        <h3>Central Library & Innovation Hub</h3>
+                        <p>Over 500,000 digital and physical volumes open 24/7 for collaborative study.</p>
+                    </div>
                 </div>
 
-                <!-- Facility Tabs -->
-                <div class="facility-tabs-nav" id="facility-tabs">
-                    <button class="fac-tab active" data-fac="library"><i class="fa-solid fa-book"></i> Central Library</button>
-                    <button class="fac-tab" data-fac="labs"><i class="fa-solid fa-microscope"></i> AI & Robotics Hub</button>
-                    <button class="fac-tab" data-fac="athletics"><i class="fa-solid fa-trophy"></i> Athletics Complex</button>
-                    <button class="fac-tab" data-fac="housing"><i class="fa-solid fa-bed"></i> Modern Residence Halls</button>
-                    <button class="fac-tab" data-fac="dining"><i class="fa-solid fa-utensils"></i> Student Union & Dining</button>
-                </div>
-
-                <!-- Tab Panels -->
-                <div class="facility-display-card" id="facility-display">
-                    <!-- Dynamic facility preview via JS -->
+                <div class="slider-controls">
+                    <button class="slide-btn" id="prevSlide"><i class="fa-solid fa-chevron-left"></i></button>
+                    <button class="slide-btn" id="nextSlide"><i class="fa-solid fa-chevron-right"></i></button>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Research Spotlight -->
-        <section id="research" class="section research-section">
-            <div class="container">
-                <div class="section-title-wrapper text-center">
-                    <span class="sub-title"><i class="fa-solid fa-atom"></i> PUSHING BOUNDARIES</span>
-                    <h2 class="main-title">WORLD-CHANGING <span class="highlight-crimson">RESEARCH</span></h2>
-                </div>
-
-                <div class="research-grid">
-                    <div class="research-card">
-                        <div class="research-tag">QUANTUM COMPUTING</div>
-                        <h3>Superconducting Qubit Architecture for Climate Modeling</h3>
-                        <p>Led by Dr. Aris Thorne in partnership with the Global Clean Tech Consortium, accelerating climate simulation algorithms.</p>
-                        <a href="#" class="read-more-link">Learn About This Initiative <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-
-                    <div class="research-card">
-                        <div class="research-tag">BIOMEDICAL ENGINEERING</div>
-                        <h3>Targeted Nanoparticle Drug Delivery for Precision Oncology</h3>
-                        <p>Faculty-student teams engineering non-invasive targeted therapies approved for Phase II clinical trials.</p>
-                        <a href="#" class="read-more-link">Learn About This Initiative <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-
-                    <div class="research-card">
-                        <div class="research-tag">SUSTAINABLE POLICY</div>
-                        <h3>Urban Resilience & Zero-Carbon Smart Infrastructure</h3>
-                        <p>Interdisciplinary study providing actionable municipal policy models adopted by over 30 international cities.</p>
-                        <a href="#" class="read-more-link">Learn About This Initiative <i class="fa-solid fa-arrow-right"></i></a>
+    <!-- Admissions & CTA Section -->
+    <section class="section admissions" id="admissions">
+        <div class="container admissions-container">
+            <div class="admissions-info">
+                <span class="sub-title">Join Apex 2024-2025</span>
+                <h2>Ready to Begin Your Journey?</h2>
+                <p>Applications for Fall Semester are now open. Take the first step toward a transformative educational experience.</p>
+                
+                <div class="deadline-box">
+                    <div class="icon"><i class="fa-solid fa-calendar-days"></i></div>
+                    <div>
+                        <h4>Early Decision Deadline</h4>
+                        <p>Submit applications by <strong>November 15, 2024</strong> for priority scholarship consideration.</p>
                     </div>
                 </div>
             </div>
-        </section>
 
-        <!-- News & Upcoming Events -->
-        <section id="news-events" class="section news-section">
-            <div class="container">
-                <div class="section-title-wrapper text-center">
-                    <span class="sub-title"><i class="fa-solid fa-newspaper"></i> STAY INFORMED</span>
-                    <h2 class="main-title">NEWS & <span class="highlight-gold">CAMPUS EVENTS</span></h2>
-                </div>
-
-                <div class="news-events-grid">
-                    <!-- Events Column -->
-                    <div class="events-col">
-                        <h3 class="col-heading"><i class="fa-regular fa-calendar font-crimson"></i> Upcoming Events</h3>
-
-                        <div class="event-item">
-                            <div class="event-date-badge">
-                                <span class="month">OCT</span>
-                                <span class="day">18</span>
-                            </div>
-                            <div class="event-info">
-                                <span class="event-cat">ACADEMIC LECTURE</span>
-                                <h4>Nobel Laureate Keynote: AI Ethics in Healthcare</h4>
-                                <p><i class="fa-regular fa-clock"></i> 4:00 PM EST | Veritas Auditorium & Live Stream</p>
-                            </div>
-                        </div>
-
-                        <div class="event-item">
-                            <div class="event-date-badge">
-                                <span class="month">NOV</span>
-                                <span class="day">02</span>
-                            </div>
-                            <div class="event-info">
-                                <span class="event-cat">CAMPUS ADMISSIONS</span>
-                                <h4>Fall Open House & Departmental Expo</h4>
-                                <p><i class="fa-regular fa-clock"></i> 9:00 AM EST | Main Quadrangle</p>
-                            </div>
-                        </div>
-
-                        <div class="event-item">
-                            <div class="event-date-badge">
-                                <span class="month">NOV</span>
-                                <span class="day">12</span>
-                            </div>
-                            <div class="event-info">
-                                <span class="event-cat">COMPETITION</span>
-                                <h4>Veritas Global Student Hackathon 2024</h4>
-                                <p><i class="fa-regular fa-clock"></i> 48-Hour Event | Science & Tech Hub</p>
-                            </div>
-                        </div>
+            <div class="admissions-form-box">
+                <h3>Request Information / Apply</h3>
+                <form id="applyForm">
+                    <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" id="fullName" placeholder="John Doe" required>
                     </div>
-
-                    <!-- News Column -->
-                    <div class="news-col">
-                        <h3 class="col-heading"><i class="fa-solid fa-bullhorn font-crimson"></i> University News</h3>
-
-                        <div class="news-item">
-                            <span class="news-date">October 10, 2024</span>
-                            <h4>Veritas University Receives $50M Gift to Establish School of AI & Data Science</h4>
-                            <p>Generous donation from alumni founder will fund 20 new faculty chairs and state-of-the-art supercomputing labs.</p>
-                        </div>
-
-                        <div class="news-item">
-                            <span class="news-date">October 04, 2024</span>
-                            <h4>Women’s Rowing Crew Claims National Championship Title</h4>
-                            <p>Veritas Athletics celebrates back-to-back gold medals in the Varsity Eight Grand Final in Boston.</p>
-                        </div>
+                    <div class="form-group">
+                        <label for="emailAddr">Email Address</label>
+                        <input type="email" id="emailAddr" placeholder="john@example.com" required>
                     </div>
-                </div>
+                    <div class="form-group">
+                        <label for="programSelect">Interested Program</label>
+                        <select id="programSelect">
+                            <option value="cs">Computer Science & AI</option>
+                            <option value="mba">Global Business Administration</option>
+                            <option value="robotics">Robotics & Mechatronics</option>
+                            <option value="biotech">Biotechnology & Genomics</option>
+                            <option value="design">UI/UX & Interactive Design</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Submit Inquiry</button>
+                    <p class="form-msg" id="formMsg"></p>
+                </form>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="footer" id="contact">
         <div class="container footer-grid">
-            <div class="footer-brand-col">
-                <a href="#home" class="uni-brand">
-                    <div class="brand-crest">
-                        <i class="fa-solid fa-graduation-cap"></i>
+            <div class="footer-col">
+                <div class="logo footer-logo">
+                    <div class="logo-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                    <div class="logo-text">
+                        <h1>APEX</h1>
+                        <span>Institute of Technology</span>
                     </div>
-                    <div class="brand-names">
-                        <span class="uni-name-title">VERITAS</span>
-                        <span class="uni-sub-title">UNIVERSITY</span>
-                    </div>
-                </a>
-                <p>Veritas University is accredited by the Higher Learning Commission. Founded in 1892, committed to truth, discovery, and community impact.</p>
-                <div class="social-icons font-gold">
-                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                </div>
+                <p>Nurturing brilliance, fostering innovation, and shaping global changemakers since 1974.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
                     <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
                     <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#"><i class="fa-brands fa-linkedin"></i></a>
                     <a href="#"><i class="fa-brands fa-youtube"></i></a>
                 </div>
             </div>
 
             <div class="footer-col">
-                <h4>Academics</h4>
+                <h4>Quick Links</h4>
                 <ul>
-                    <li><a href="#programs">Undergraduate Majors</a></li>
-                    <li><a href="#programs">Graduate & Doctoral</a></li>
-                    <li><a href="#programs">Online Education</a></li>
-                    <li><a href="#programs">Libraries & Archives</a></li>
-                    <li><a href="#programs">Faculty Directory</a></li>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#academics">Academics</a></li>
+                    <li><a href="#campus">Campus Life</a></li>
+                    <li><a href="#admissions">Admissions</a></li>
                 </ul>
             </div>
 
             <div class="footer-col">
-                <h4>Admissions & Aid</h4>
+                <h4>Programs</h4>
                 <ul>
-                    <li><a href="#admissions">How to Apply</a></li>
-                    <li><a href="#aid-calculator">Tuition & Financial Aid</a></li>
-                    <li><a href="#admissions">Scholarship Opportunities</a></li>
-                    <li><a href="#admissions">Visit & Campus Tours</a></li>
-                    <li><a href="#admissions">International Students</a></li>
+                    <li><a href="#academics">Computer Science</a></li>
+                    <li><a href="#academics">Robotics Engineering</a></li>
+                    <li><a href="#academics">Global Business MBA</a></li>
+                    <li><a href="#academics">Biotechnology</a></li>
+                    <li><a href="#academics">UI/UX Design</a></li>
                 </ul>
             </div>
 
             <div class="footer-col">
                 <h4>Contact Us</h4>
-                <p><i class="fa-solid fa-location-dot font-gold"></i> 100 Veritas Parkway, Cambridge, MA 02138</p>
-                <p><i class="fa-solid fa-phone font-gold"></i> +1 (617) 555-0192</p>
-                <p><i class="fa-solid fa-envelope font-gold"></i> admissions@veritas.edu</p>
+                <p><i class="fa-solid fa-location-dot"></i> 100 University Avenue, Tech City, TC 94107</p>
+                <p><i class="fa-solid fa-phone"></i> +1 (555) 849-2900</p>
+                <p><i class="fa-solid fa-envelope"></i> admissions@apex.edu</p>
             </div>
         </div>
-
         <div class="footer-bottom">
-            <div class="container flex-between">
-                <p>&copy; 2025 Veritas International University. All Rights Reserved.</p>
-                <div class="footer-legal">
-                    <a href="#">Privacy Policy</a> | <a href="#">Title IX Notice</a> | <a href="#">Campus Safety Report</a>
-                </div>
+            <div class="container">
+                <p>&copy; 2024 Apex Institute of Technology & Sciences. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-    <!-- MODALS -->
-
-    <!-- Program Detail Modal -->
-    <div class="modal-overlay" id="program-modal">
-        <div class="modal-container modal-lg">
-            <button class="modal-close" id="close-prog-modal"><i class="fa-solid fa-xmark"></i></button>
-            <div class="modal-body" id="prog-modal-content">
-                <!-- Dynamically rendered -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Application / Request Info Modal -->
-    <div class="modal-overlay" id="apply-modal">
-        <div class="modal-container">
-            <button class="modal-close" id="close-apply-modal"><i class="fa-solid fa-xmark"></i></button>
-            <div class="modal-header">
-                <h3><i class="fa-solid fa-paper-plane font-crimson"></i> Application & Info Portal</h3>
-            </div>
-            <div class="modal-body">
-                <form id="apply-form">
-                    <div class="form-group">
-                        <label>First & Last Name <span class="req">*</span></label>
-                        <input type="text" id="app-name" class="form-input" placeholder="e.g. Eleanor Vance" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Email Address <span class="req">*</span></label>
-                        <input type="email" id="app-email" class="form-input" placeholder="eleanor@example.com" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Intended Major / Discipline <span class="req">*</span></label>
-                        <select id="app-major" class="form-input">
-                            <option value="B.S. Computer Science & AI">B.S. Computer Science & AI</option>
-                            <option value="B.S. Biomedical Engineering">B.S. Biomedical Engineering</option>
-                            <option value="B.A. International Business & Finance">B.A. International Business & Finance</option>
-                            <option value="M.S. Data Science & Analytics">M.S. Data Science & Analytics</option>
-                            <option value="Juris Doctor (J.D.) Law">Juris Doctor (J.D.) Law</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Target Entry Term</label>
-                        <select id="app-term" class="form-input">
-                            <option value="Fall 2025">Fall 2025 (Priority Deadline Dec 1)</option>
-                            <option value="Spring 2026">Spring 2026</option>
-                            <option value="Fall 2026">Fall 2026</option>
-                        </select>
-                    </div>
-
-                    <button type="submit" class="btn btn-crimson btn-block">Submit Request & Generate Portal ID</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Virtual Tour Map Modal -->
-    <div class="modal-overlay" id="tour-modal">
-        <div class="modal-container modal-lg text-center">
-            <button class="modal-close" id="close-tour-modal"><i class="fa-solid fa-xmark"></i></button>
-            <h2><i class="fa-solid fa-compass font-gold"></i> VIRTUAL CAMPUS INTERACTIVE MAP</h2>
-            <p>Click any campus hotspot below to explore 360° facility views.</p>
-
-            <div class="tour-map-box">
-                <div class="map-graphic-holder">
-                    <!-- Interactive Hotspot Buttons -->
-                    <button class="map-hotspot hs-1" data-spot="Central Quadrangle & Clock Tower"><i class="fa-solid fa-location-dot"></i> Central Quad</button>
-                    <button class="map-hotspot hs-2" data-spot="Thorne Science & Supercomputing Complex"><i class="fa-solid fa-flask"></i> Science Hub</button>
-                    <button class="map-hotspot hs-3" data-spot="Oaks Olympic Athletics & Pool Arena"><i class="fa-solid fa-trophy"></i> Athletics Arena</button>
-                    <button class="map-hotspot hs-4" data-spot="Founders Library & Rare Manuscript Archive"><i class="fa-solid fa-book"></i> Central Library</button>
-                </div>
-            </div>
-
-            <div class="hotspot-preview-box" id="hotspot-info">
-                <h4>Select a hotspot above to view facility details</h4>
-            </div>
-        </div>
-    </div>
-
-    <!-- Toast Container -->
-    <div class="toast-container" id="toast-container"></div>
-
-    <script src="script.js"></script>
+    <script src="college/script.js"></script>
 </body>
 </html>
