@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SocietyManager - Co-operative Housing Society Management Portal</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Chart.js for Analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-slate-50 text-slate-800 font-['Plus_Jakarta_Sans',sans-serif] antialiased">
+
+    <!-- App Wrapper -->
+    <div class="flex h-screen overflow-hidden">
+
+        <!-- Sidebar Navigation -->
+        <aside id="sidebar" class="bg-slate-900 text-slate-300 w-64 space-y-6 py-6 px-4 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out z-30 flex flex-col justify-between shadow-xl">
+            <div>
+                <!-- Brand / Logo -->
+                <div class="flex items-center justify-between px-2 mb-8">
+                    <div class="flex items-center space-x-3">
+                        <div class="bg-emerald-500 text-white p-2.5 rounded-xl shadow-lg shadow-emerald-500/30 flex items-center justify-center">
+                            <i class="fa-solid fa-city text-xl"></i>
+                        </div>
+                        <div>
+                            <span class="text-white font-bold text-lg tracking-wide block leading-tight">Greenwood</span>
+                            <span class="text-xs text-emerald-400 font-medium uppercase tracking-wider">Society Portal</span>
+                        </div>
+                    </div>
+                    <button id="closeSidebar" class="md:hidden text-slate-400 hover:text-white">
+                        <i class="fa-solid fa-xmark text-xl"></i>
+                    </button>
+                </div>
+
+                <!-- Navigation Links -->
+                <nav class="space-y-1">
+                    <a href="#dashboard" onclick="switchTab('dashboard')" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition active-tab">
+                        <i class="fa-solid fa-chart-pie w-5 text-center"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="#residents" onclick="switchTab('residents')" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition hover:bg-slate-800 hover:text-white">
+                        <i class="fa-solid fa-users w-5 text-center"></i>
+                        <span>Residents & Flats</span>
+                    </a>
+                    <a href="#maintenance" onclick="switchTab('maintenance')" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition hover:bg-slate-800 hover:text-white">
+                        <i class="fa-solid fa-file-invoice-dollar w-5 text-center"></i>
+                        <span>Maintenance & Dues</span>
+                    </a>
+                    <a href="#complaints" onclick="switchTab('complaints')" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition hover:bg-slate-800 hover:text-white">
+                        <i class="fa-solid fa-screwdriver-wrench w-5 text-center"></i>
+                        <span>Helpdesk & Complaints</span>
+                        <span id="complaintBadge" class="ml-auto bg-amber-500 text-slate-950 font-bold text-xs px-2 py-0.5 rounded-full">3</span>
+                    </a>
+                    <a href="#notices" onclick="switchTab('notices')" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition hover:bg-slate-800 hover:text-white">
+                        <i class="fa-solid fa-bullhorn w-5 text-center"></i>
+                        <span>Circulars & Notices</span>
+                    </a>
+                    <a href="#amenities" onclick="switchTab('amenities')" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition hover:bg-slate-800 hover:text-white">
+                        <i class="fa-solid fa-calendar-days w-5 text-center"></i>
+                        <span>Clubhouse & Bookings</span>
+                    </a>
+                    <a href="#visitors" onclick="switchTab('visitors')" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition hover:bg-slate-800 hover:text-white">
+                        <i class="fa-solid fa-id-badge w-5 text-center"></i>
+                        <span>Visitor Logs</span>
+                    </a>
+                    <a href="#finances" onclick="switchTab('finances')" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition hover:bg-slate-800 hover:text-white">
+                        <i class="fa-solid fa-wallet w-5 text-center"></i>
+                        <span>Society Funds</span>
+                    </a>
+                </nav>
+            </div>
+
+            <!-- Secretary Info Footer -->
+            <div class="pt-4 border-t border-slate-800 px-2">
+                <div class="flex items-center space-x-3 bg-slate-800/60 p-3 rounded-xl">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80" alt="Secretary" class="w-10 h-10 rounded-full object-cover ring-2 ring-emerald-500">
+                    <div class="overflow-hidden">
+                        <h4 class="text-white text-xs font-semibold truncate">Eleanor Vance</h4>
+                        <p class="text-[11px] text-emerald-400 font-medium truncate">Chief Secretary</p>
+                    </div>
+                    <button onclick="openSettingsModal()" class="ml-auto text-slate-400 hover:text-white transition">
+                        <i class="fa-solid fa-gear"></i>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+
+            <!-- Top Header Bar -->
+            <header class="bg-white border-b border-slate-200 h-16 flex items-center justify-between px-6 z-20 shadow-xs">
+                <div class="flex items-center space-x-4">
+                    <button id="menuBtn" class="md:hidden text-slate-600 hover:text-slate-900 focus:outline-none">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                    <div>
+                        <h1 id="pageTitle" class="text-xl font-bold text-slate-900">Dashboard Overview</h1>
+                        <p class="text-xs text-slate-500 hidden sm:block">Welcome back, Secretary Eleanor! Here's what's happening in Greenwood today.</p>
+                    </div>
+                </div>
+
+                <!-- Header Actions -->
+                <div class="flex items-center space-x-3">
+                    <!-- Quick Action Dropdown -->
+                    <div class="relative">
+                        <button onclick="toggleQuickActions()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl text-sm font-semibold flex items-center space-x-2 shadow-sm transition">
+                            <i class="fa-solid fa-plus text-xs"></i>
+                            <span class="hidden sm:inline">Quick Action</span>
+                            <i class="fa-solid fa-chevron-down text-xs"></i>
+                        </button>
+                        <div id="quickActionDropdown" class="hidden absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-2 z-50 animate-fadeIn">
+                            <button onclick="openModal('addResidentModal')" class="w-full text-left px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 flex items-center space-x-2">
+                                <i class="fa-solid fa-user-plus text-emerald-600 w-5"></i>
+                                <span>Add New Resident</span>
+                            </button>
+                            <button onclick="openModal('broadcastModal')" class="w-full text-left px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 flex items-center space-x-2">
+                                <i class="fa-solid fa-bullhorn text-blue-600 w-5"></i>
+                                <span>Broadcast Notice</span>
+                            </button>
+                            <button onclick="openModal('addBillModal')" class="w-full text-left px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 flex items-center space-x-2">
+                                <i class="fa-solid fa-file-invoice text-indigo-600 w-5"></i>
+                                <span>Generate Maintenance Bill</span>
+                            </button>
+                            <button onclick="openModal('addExpenseModal')" class="w-full text-left px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 flex items-center space-x-2">
+                                <i class="fa-solid fa-receipt text-rose-600 w-5"></i>
+                                <span>Record Expense</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Notifications Bell -->
+                    <div class="relative">
+                        <button onclick="toggleNotifications()" class="w-10 h-10 rounded-xl bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-600 relative transition">
+                            <i class="fa-regular fa-bell"></i>
+                            <span class="absolute top-2 right-2 w-2.5 h-2.5 bg-rose-500 rounded-full ring-2 ring-white"></span>
+                        </button>
+                        <div id="notificationDropdown" class="hidden absolute right-0 mt-2 w-80 bg-white rounded-xl shadow-xl border border-slate-100 py-3 z-50">
+                            <div class="px-4 pb-2 border-b border-slate-100 flex items-center justify-between">
+                                <h3 class="font-bold text-sm text-slate-900">Notifications</h3>
+                                <span class="text-xs bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full font-semibold">3 New</span>
+                            </div>
+                            <div class="divide-y divide-slate-100 max-h-72 overflow-y-auto">
+                                <div class="p-3 hover:bg-slate-50 cursor-pointer">
+                                    <p class="text-xs font-semibold text-slate-900">Flat B-402 paid maintenance</p>
+                                    <p class="text-[11px] text-slate-500">₹4,500 received via UPI Gateway.</p>
+                                    <span class="text-[10px] text-emerald-600 font-medium">10 mins ago</span>
+                                </div>
+                                <div class="p-3 hover:bg-slate-50 cursor-pointer">
+                                    <p class="text-xs font-semibold text-slate-900">New Complaint logged</p>
+                                    <p class="text-[11px] text-slate-500">Water leakage in Wing A terrace.</p>
+                                    <span class="text-[10px] text-amber-600 font-medium">1 hour ago</span>
+                                </div>
+                                <div class="p-3 hover:bg-slate-50 cursor-pointer">
+                                    <p class="text-xs font-semibold text-slate-900">Clubhouse Booking request</p>
+                                    <p class="text-[11px] text-slate-500">Flat C-101 requested for Birthday Party.</p>
+                                    <span class="text-[10px] text-blue-600 font-medium">3 hours ago</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Scrollable Main Content Area -->
+            <main class="flex-1 overflow-y-auto p-6 bg-slate-50/50" id="mainContainer">
+
+                <!-- TAB 1: DASHBOARD -->
+                <div id="tab-dashboard" class="tab-content space-y-6">
+                    <!-- Stats Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                        <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-xs flex items-center justify-between">
+                            <div>
+                                <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Total Residents</p>
+                                <h3 id="statTotalResidents" class="text-2xl font-bold text-slate-900 mt-1">128</h3>
+                                <p class="text-xs text-emerald-600 font-semibold mt-1"><i class="fa-solid fa-arrow-up"></i> +2 this month</p>
+                            </div>
+                            <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl shadow-inner">
+                                <i class="fa-solid fa-users"></i>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-xs flex items-center justify-between">
+                            <div>
+                                <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Collection Rate</p>
+                                <h3 class="text-2xl font-bold text-slate-900 mt-1">92.4%</h3>
+                                <p class="text-xs text-emerald-600 font-semibold mt-1"><i class="fa-solid fa-arrow-up"></i> +4.1% vs last mo</p>
+                            </div>
+                            <div class="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl shadow-inner">
+                                <i class="fa-solid fa-chart-line"></i>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-xs flex items-center justify-between">
+                            <div>
+                                <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Open Complaints</p>
+                                <h3 id="statOpenComplaints" class="text-2xl font-bold text-slate-900 mt-1">3</h3>
+                                <p class="text-xs text-amber-600 font-semibold mt-1"><i class="fa-solid fa-clock"></i> 2 pending vendor</p>
+                            </div>
+                            <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl shadow-inner">
+                                <i class="fa-solid fa-screwdriver-wrench"></i>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-xs flex items-center justify-between">
+                            <div>
+                                <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Society Balance</p>
+                                <h3 class="text-2xl font-bold text-slate-900 mt-1">₹14.8L</h3>
+                                <p class="text-xs text-emerald-600 font-semibold mt-1"><i class="fa-solid fa-shield-halved"></i> Audit Approved</p>
+                            </div>
+                            <div class="w-12 h-12 rounded-xl bg-violet-50 text-violet-600 flex items-center justify-center text-xl shadow-inner">
+                                <i class="fa-solid fa-vault"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Charts & Quick Notice Section -->
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <!-- Chart 1: Maintenance Collection Trend -->
+                        <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-xs lg:col-span-2 flex flex-col justify-between">
+                            <div class="flex items-center justify-between mb-4">
+                                <div>
+                                    <h3 class="font-bold text-slate-900">Maintenance Collections (Last 6 Months)</h3>
+                                    <p class="text-xs text-slate-500">Comparison of billed vs collected maintenance dues (in ₹ Lakhs)</p>
+                                </div>
+                                <span class="bg-slate-100 text-slate-700 text-xs px-3 py-1 rounded-lg font-semibold">FY 2024-25</span>
+                            </div>
+                            <div class="h-64 relative">
+                                <canvas id="collectionChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Quick Notice Broadcast Box -->
+                        <div class="bg-gradient-to-br from-slate-900 to-slate-800 text-white p-6 rounded-2xl shadow-lg flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center justify-between mb-3">
+                                    <span class="bg-emerald-500/20 text-emerald-400 text-xs px-2.5 py-1 rounded-md font-semibold tracking-wide uppercase">Announcement</span>
+                                    <i class="fa-solid fa-bullhorn text-emerald-400 text-lg"></i>
+                                </div>
+                                <h3 class="text-lg font-bold text-white mb-2">Annual General Body Meeting (AGM)</h3>
+                                <p class="text-slate-300 text-xs leading-relaxed mb-4">
+                                    Notice is hereby given that the 12th Annual General Body Meeting of Greenwood Society will be held on Sunday, 28th October at 10:00 AM in the Clubhouse Hall.
+                                </p>
+                                <div class="bg-slate-800/80 p-3 rounded-xl border border-slate-700 text-xs space-y-1">
+                                    <p class="text-slate-300"><strong class="text-white">Agenda:</strong> Annual Budget approval & Lift AMC renewal.</p>
+                                    <p class="text-slate-400"><strong class="text-white">Quorum:</strong> Minimum 40 members required.</p>
+                                </div>
+                            </div>
+                            <div class="mt-6 flex items-center space-x-3">
+                                <button onclick="openModal('broadcastModal')" class="flex-1 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold py-2.5 rounded-xl text-xs transition shadow-md">
+                                    New Notice
+                                </button>
+                                <button onclick="switchTab('notices')" class="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-white font-semibold rounded-xl text-xs transition border border-slate-700">
+                                    View All
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity & Quick Pay Status -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <!-- Recent Activity Log -->
+                        <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-xs">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="font-bold text-slate-900">Recent Society Activities</h3>
+                                <span class="text-xs text-slate-400">Live feed</span>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="flex items-start space-x-3 pb-3 border-b border-slate-100">
+                                    <div class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xs shrink-0 mt-0.5">
+                                        <i class="fa-solid fa-indian-rupee-sign"></i>
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <p class="text-xs font-semibold text-slate-900">Maintenance Paid by Flat A-203</p>
+                                        <p class="text-[11px] text-slate-500">Paid ₹4,500 via UPI (Txn #UPI984210)</p>
+                                    </div>
+                                    <span class="text-[10px] text-slate-400">12m ago</span>
+                                </div>
+
+                                <div class="flex items-start space-x-3 pb-3 border-b border-slate-100">
+                                    <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xs shrink-0 mt-0.5">
+                                        <i class="fa-solid fa-user-plus"></i>
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <p class="text-xs font-semibold text-slate-900">New Tenant Registered in Flat C-302</p>
+                                        <p class="text-[11px] text-slate-500">Mr. David Miller & Family (Lease Agreement verified)</p>
+                                    </div>
+                                    <span class="text-[10px] text-slate-400">2h ago</span>
+                                </div>
+
+                                <div class="flex items-start space-x-3 pb-3 border-b border-slate-100">
+                                    <div class="w-8 h-8 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-xs shrink-0 mt-0.5">
+                                        <i class="fa-solid fa-screwdriver-wrench"></i>
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <p class="text-xs font-semibold text-slate-900">Complaint Resolved: Street Light</p>
+                                        <p class="text-[11px] text-slate-500">Electrician fixed pole near Gate #2.</p>
+                                    </div>
+                                    <span class="text-[10px] text-slate-400">5h ago</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Dues Status Card -->
+                        <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-xs flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="font-bold text-slate-900">Maintenance Defaulters Summary</h3>
+                                    <button onclick="switchTab('maintenance')" class="text-xs text-emerald-600 font-semibold hover:underline">Manage Bills</button>
+                                </div>
+                                <div class="space-y-3">
+                                    <div class="flex items-center justify-between p-3 bg-rose-50/60 rounded-xl border border-rose-100">
+                                        <div class="flex items-center space-x-3">
+                                            <div class="w-8 h-8 rounded-lg bg-rose-500 text-white font-bold text-xs flex items-center justify-center">B-104</div>
+                                            <div>
+                                                <h4 class="text-xs font-bold text-slate-900">Robert Fox (Owner)</h4>
+                                                <p class="text-[11px] text-rose-600 font-medium">Overdue by 45 days (2 Months)</p>
+                                            </div>
+                                        </div>
+                                        <div class="text-right">
+                                            <span class="text-xs font-extrabold text-slate-900">₹9,000</span>
+                                            <button onclick="sendReminder('B-104')" class="block text-[10px] bg-rose-600 text-white px-2 py-0.5 rounded font-semibold mt-1 hover:bg-rose-700">Send Notice</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-center justify-between p-3 bg-amber-50/60 rounded-xl border border-amber-100">
+                                        <div class="flex items-center space-x-3">
+                                            <div class="w-8 h-8 rounded-lg bg-amber-500 text-white font-bold text-xs flex items-center justify-center">C-202</div>
+                                            <div>
+                                                <h4 class="text-xs font-bold text-slate-900">Sarah Jenkins (Tenant)</h4>
+                                                <p class="text-[11px] text-amber-600 font-medium">Overdue by 15 days</p>
+                                            </div>
+                                        </div>
+                                        <div class="text-right">
+                                            <span class="text-xs font-extrabold text-slate-900">₹4,500</span>
+                                            <button onclick="sendReminder('C-202')" class="block text-[10px] bg-amber-600 text-white px-2 py-0.5 rounded font-semibold mt-1 hover:bg-amber-700">Send Notice</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+                                <span>Total Defaulters: <strong class="text-slate-900">4 Flats</strong></span>
+                                <span>Total Pending Amount: <strong class="text-rose-600">₹27,000</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 2: RESIDENTS & FLATS -->
+                <div id="tab-residents" class="tab-content hidden space-y-6">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white p-5 rounded-2xl border border-slate-100 shadow-xs">
+                        <div class="flex items-center space-x-3 w-full sm:w-auto">
+                            <div class="relative flex-1 sm:w-80">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                                    <i class="fa-solid fa-search"></i>
+                                </span>
+                                <input type="text" id="residentSearch" onkeyup="filterResidents()" placeholder="Search by name, flat no, or phone..." class="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                            </div>
+                            <select id="wingFilter" onchange="filterResidents()" class="py-2 px-3 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                                <option value="">All Wings</option>
+                                <option value="Wing A">Wing A</option>
+                                <option value="Wing B">Wing B</option>
+                                <option value="Wing C">Wing C</option>
+                                <option value="Wing D">Wing D</option>
+                            </select>
+                        </div>
+                        <button onclick="openModal('addResidentModal')" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center space-x-2 shadow-sm transition">
+                            <i class="fa-solid fa-user-plus"></i>
+                            <span>Add Resident</span>
+                        </button>
+                    </div>
+
+                    <!-- Residents Table -->
+                    <div class="bg-white rounded-2xl border border-slate-100 shadow-xs overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr class="bg-slate-50 border-b border-slate-200 text-slate-600 text-xs font-semibold uppercase tracking-wider">
+                                        <th class="py-3 px-4">Flat No</th>
+                                        <th class="py-3 px-4">Resident Name</th>
+                                        <th class="py-3 px-4">Contact Info</th>
+                                        <th class="py-3 px-4">Type</th>
+                                        <th class="py-3 px-4">Vehicles</th>
+                                        <th class="py-3 px-4">Dues Status</th>
+                                        <th class="py-3 px-4 text-center">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="residentsTableBody" class="divide-y divide-slate-100 text-xs">
+                                    <!-- Dynamic Population via JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 3: MAINTENANCE & DUES -->
+                <div id="tab-maintenance" class="tab-content hidden space-y-6">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white p-5 rounded-2xl border border-slate-100 shadow-xs">
+                        <div>
+                            <h3 class="font-bold text-slate-900">Maintenance Bills & Invoices</h3>
+                            <p class="text-xs text-slate-500">Generate monthly bills, record offline payments, and track receipts.</p>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <button onclick="openModal('addBillModal')" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center space-x-2 shadow-sm transition">
+                                <i class="fa-solid fa-file-invoice-dollar"></i>
+                                <span>Generate Bills (All Flats)</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Maintenance Bills Table -->
+                    <div class="bg-white rounded-2xl border border-slate-100 shadow-xs overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr class="bg-slate-50 border-b border-slate-200 text-slate-600 text-xs font-semibold uppercase tracking-wider">
+                                        <th class="py-3 px-4">Bill ID</th>
+                                        <th class="py-3 px-4">Flat No</th>
+                                        <th class="py-3 px-4">Resident</th>
+                                        <th class="py-3 px-4">Billing Month</th>
+                                        <th class="py-3 px-4">Amount</th>
+                                        <th class="py-3 px-4">Status</th>
+                                        <th class="py-3 px-4 text-center">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="billsTableBody" class="divide-y divide-slate-100 text-xs">
+                                    <!-- Dynamic Data -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 4: COMPLAINTS & HELPDESK -->
+                <div id="tab-complaints" class="tab-content hidden space-y-6">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white p-5 rounded-2xl border border-slate-100 shadow-xs">
+                        <div>
+                            <h3 class="font-bold text-slate-900">Society Helpdesk & Complaints</h3>
+                            <p class="text-xs text-slate-500">Manage resident grievance tickets regarding plumbing, electricity, security & cleanliness.</p>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button onclick="filterComplaints('All')" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-900 text-white">All</button>
+                            <button onclick="filterComplaints('Pending')" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200">Pending</button>
+                            <button onclick="filterComplaints('Resolved')" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200">Resolved</button>
+                        </div>
+                    </div>
+
+                    <!-- Complaints Cards Grid -->
+                    <div id="complaintsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                        <!-- Dynamic Cards -->
+                    </div>
+                </div>
+
+                <!-- TAB 5: CIRCULARS & NOTICES -->
+                <div id="tab-notices" class="tab-content hidden space-y-6">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white p-5 rounded-2xl border border-slate-100 shadow-xs">
+                        <div>
+                            <h3 class="font-bold text-slate-900">Society Notices & Circulars</h3>
+                            <p class="text-xs text-slate-500">Broadcast official messages to all residents instantly via SMS/App notification.</p>
+                        </div>
+                        <button onclick="openModal('broadcastModal')" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center space-x-2 shadow-sm transition">
+                            <i class="fa-solid fa-bullhorn"></i>
+                            <span>Create Notice</span>
+                        </button>
+                    </div>
+
+                    <!-- Notices List -->
+                    <div id="noticesContainer" class="space-y-4">
+                        <!-- Dynamic Notices -->
+                    </div>
+                </div>
+
+                <!-- TAB 6: CLUBHOUSE & AMENITIES -->
+                <div id="tab-amenities" class="tab-content hidden space-y-6">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white p-5 rounded-2xl border border-slate-100 shadow-xs">
+                        <div>
+                            <h3 class="font-bold text-slate-900">Amenity Bookings (Clubhouse, Party Lawn, Tennis Court)</h3>
+                            <p class="text-xs text-slate-500">Approve or reject resident amenity reservation requests.</p>
+                        </div>
+                    </div>
+
+                    <!-- Bookings Table -->
+                    <div class="bg-white rounded-2xl border border-slate-100 shadow-xs overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr class="bg-slate-50 border-b border-slate-200 text-slate-600 text-xs font-semibold uppercase tracking-wider">
+                                        <th class="py-3 px-4">Booking ID</th>
+                                        <th class="py-3 px-4">Amenity</th>
+                                        <th class="py-3 px-4">Flat No & Resident</th>
+                                        <th class="py-3 px-4">Event Date</th>
+                                        <th class="py-3 px-4">Status</th>
+                                        <th class="py-3 px-4 text-center">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="bookingsTableBody" class="divide-y divide-slate-100 text-xs">
+                                    <!-- Dynamic Bookings -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 7: VISITOR LOGS -->
+                <div id="tab-visitors" class="tab-content hidden space-y-6">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white p-5 rounded-2xl border border-slate-100 shadow-xs">
+                        <div>
+                            <h3 class="font-bold text-slate-900">Gate Security & Visitor Logs</h3>
+                            <p class="text-xs text-slate-500">Real-time gate pass logs for cab drivers, delivery agents, and guests.</p>
+                        </div>
+                        <button onclick="openModal('addVisitorModal')" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center space-x-2 shadow-sm transition">
+                            <i class="fa-solid fa-user-plus"></i>
+                            <span>Log Visitor Entry</span>
+                        </button>
+                    </div>
+
+                    <!-- Visitors Table -->
+                    <div class="bg-white rounded-2xl border border-slate-100 shadow-xs overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr class="bg-slate-50 border-b border-slate-200 text-slate-600 text-xs font-semibold uppercase tracking-wider">
+                                        <th class="py-3 px-4">Pass ID</th>
+                                        <th class="py-3 px-4">Visitor Name</th>
+                                        <th class="py-3 px-4">Purpose / Company</th>
+                                        <th class="py-3 px-4">Visiting Flat</th>
+                                        <th class="py-3 px-4">In Time</th>
+                                        <th class="py-3 px-4">Status</th>
+                                        <th class="py-3 px-4 text-center">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="visitorsTableBody" class="divide-y divide-slate-100 text-xs">
+                                    <!-- Dynamic Visitors -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 8: SOCIETY FUNDS & EXPENSES -->
+                <div id="tab-finances" class="tab-content hidden space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                        <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-xs">
+                            <p class="text-xs text-slate-400 uppercase font-semibold">Total Bank Balance</p>
+                            <h3 class="text-2xl font-bold text-slate-900 mt-1">₹14,82,400</h3>
+                            <p class="text-xs text-emerald-600 font-semibold mt-1">HDFC Bank A/c #5920</p>
+                        </div>
+                        <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-xs">
+                            <p class="text-xs text-slate-400 uppercase font-semibold">Total Income (This Month)</p>
+                            <h3 class="text-2xl font-bold text-emerald-600 mt-1">+₹5,42,000</h3>
+                            <p class="text-xs text-slate-500 mt-1">Maintenance & Clubhouse rental</p>
+                        </div>
+                        <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-xs">
+                            <p class="text-xs text-slate-400 uppercase font-semibold">Total Expenses (This Month)</p>
+                            <h3 class="text-2xl font-bold text-rose-600 mt-1">-₹1,85,500</h3>
+                            <p class="text-xs text-slate-500 mt-1">Security guard salary, electricity</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-xs">
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <h3 class="font-bold text-slate-900">Society Expense Ledger</h3>
+                                <p class="text-xs text-slate-500">Recorded maintenance and repair expenditures.</p>
+                            </div>
+                            <button onclick="openModal('addExpenseModal')" class="bg-slate-900 hover:bg-slate-800 text-white px-4 py-2 rounded-xl text-xs font-bold transition">
+                                <i class="fa-solid fa-plus mr-1"></i> Add Expense
+                            </button>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr class="bg-slate-50 border-b border-slate-200 text-slate-600 text-xs font-semibold uppercase tracking-wider">
+                                        <th class="py-3 px-4">Expense ID</th>
+                                        <th class="py-3 px-4">Category</th>
+                                        <th class="py-3 px-4">Description</th>
+                                        <th class="py-3 px-4">Date</th>
+                                        <th class="py-3 px-4">Amount</th>
+                                        <th class="py-3 px-4">Approved By</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="expensesTableBody" class="divide-y divide-slate-100 text-xs">
+                                    <!-- Dynamic Expenses -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- ================= MODALS ================= -->
+
+    <!-- Modal: Add Resident -->
+    <div id="addResidentModal" class="fixed inset-0 bg-slate-950/60 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-100 animate-scaleUp">
+            <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+                <h3 class="font-bold text-slate-900 text-base"><i class="fa-solid fa-user-plus text-emerald-600 mr-2"></i> Register New Resident</h3>
+                <button onclick="closeModal('addResidentModal')" class="text-slate-400 hover:text-slate-700 text-lg"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="residentForm" onsubmit="handleResidentSubmit(event)" class="space-y-4 pt-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Wing / Block</label>
+                        <select id="resWing" required class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-emerald-500">
+                            <option value="Wing A">Wing A</option>
+                            <option value="Wing B">Wing B</option>
+                            <option value="Wing C">Wing C</option>
+                            <option value="Wing D">Wing D</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Flat Number</label>
+                        <input type="text" id="resFlat" required placeholder="e.g. 402" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-emerald-500">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Resident Full Name</label>
+                    <input type="text" id="resName" required placeholder="e.g. John Doe" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-emerald-500">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Phone Number</label>
+                        <input type="text" id="resPhone" required placeholder="+91 98765 43210" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-emerald-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Occupancy Type</label>
+                        <select id="resType" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-emerald-500">
+                            <option value="Owner">Owner Occupied</option>
+                            <option value="Tenant">Tenant (Rented)</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Vehicle Details (Car/Bike No.)</label>
+                    <input type="text" id="resVehicles" placeholder="e.g. MH-12-AB-1234" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-emerald-500">
+                </div>
+                <div class="pt-4 flex items-center justify-end space-x-3">
+                    <button type="button" onclick="closeModal('addResidentModal')" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold transition">Cancel</button>
+                    <button type="submit" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition shadow-md">Save Resident</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: Broadcast Notice -->
+    <div id="broadcastModal" class="fixed inset-0 bg-slate-950/60 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-100 animate-scaleUp">
+            <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+                <h3 class="font-bold text-slate-900 text-base"><i class="fa-solid fa-bullhorn text-blue-600 mr-2"></i> Broadcast Circular / Notice</h3>
+                <button onclick="closeModal('broadcastModal')" class="text-slate-400 hover:text-slate-700 text-lg"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="noticeForm" onsubmit="handleNoticeSubmit(event)" class="space-y-4 pt-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Notice Title</label>
+                    <input type="text" id="noticeTitle" required placeholder="e.g. Water Supply Interruption on Sunday" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-emerald-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Category</label>
+                    <select id="noticeCategory" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-emerald-500">
+                        <option value="General Announcement">General Announcement</option>
+                        <option value="Maintenance & Repair">Maintenance & Repair</option>
+                        <option value="Meeting & AGM">Meeting & AGM</option>
+                        <option value="Emergency Alert">Emergency Alert</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Notice Body / Details</label>
+                    <textarea id="noticeBody" rows="4" required placeholder="Type full circular details here..." class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-emerald-500"></textarea>
+                </div>
+                <div class="pt-4 flex items-center justify-end space-x-3">
+                    <button type="button" onclick="closeModal('broadcastModal')" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold transition">Cancel</button>
+                    <button type="submit" class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition shadow-md">Publish & Broadcast</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: Add Maintenance Bill -->
+    <div id="addBillModal" class="fixed inset-0 bg-slate-950/60 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-100 animate-scaleUp">
+            <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+                <h3 class="font-bold text-slate-900 text-base"><i class="fa-solid fa-file-invoice text-indigo-600 mr-2"></i> Generate Monthly Bill</h3>
+                <button onclick="closeModal('addBillModal')" class="text-slate-400 hover:text-slate-700 text-lg"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form onsubmit="handleBillSubmit(event)" class="space-y-4 pt-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Select Flat / Resident</label>
+                    <select id="billFlat" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-emerald-500">
+                        <option value="Wing A-101">Wing A-101 (Alice Smith)</option>
+                        <option value="Wing B-203">Wing B-203 (Rajesh Kumar)</option>
+                        <option value="Wing C-302">Wing C-302 (David Miller)</option>
+                        <option value="Wing D-102">Wing D-102 (Priya Sharma)</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Billing Month</label>
+                    <input type="text" id="billMonth" value="November 2024" required class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Amount (₹)</label>
+                    <input type="number" id="billAmount" value="4500" required class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+                </div>
+                <div class="pt-4 flex items-center justify-end space-x-3">
+                    <button type="button" onclick="closeModal('addBillModal')" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold transition">Cancel</button>
+                    <button type="submit" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition shadow-md">Generate Bill</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: Add Expense -->
+    <div id="addExpenseModal" class="fixed inset-0 bg-slate-950/60 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-100 animate-scaleUp">
+            <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+                <h3 class="font-bold text-slate-900 text-base"><i class="fa-solid fa-receipt text-rose-600 mr-2"></i> Record Society Expense</h3>
+                <button onclick="closeModal('addExpenseModal')" class="text-slate-400 hover:text-slate-700 text-lg"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form onsubmit="handleExpenseSubmit(event)" class="space-y-4 pt-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Expense Category</label>
+                    <select id="expCategory" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+                        <option value="Security & Staff Salary">Security & Staff Salary</option>
+                        <option value="Electricity & Common Utilities">Electricity & Common Utilities</option>
+                        <option value="Lift Maintenance & AMC">Lift Maintenance & AMC</option>
+                        <option value="Plumbing & Repairs">Plumbing & Repairs</option>
+                        <option value="Garden & Housekeeping">Garden & Housekeeping</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Description</label>
+                    <input type="text" id="expDesc" required placeholder="e.g. October Security Guard Salaries" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Amount (₹)</label>
+                    <input type="number" id="expAmount" required placeholder="e.g. 75000" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+                </div>
+                <div class="pt-4 flex items-center justify-end space-x-3">
+                    <button type="button" onclick="closeModal('addExpenseModal')" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold transition">Cancel</button>
+                    <button type="submit" class="px-5 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-bold transition shadow-md">Record Expense</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: Log Visitor -->
+    <div id="addVisitorModal" class="fixed inset-0 bg-slate-950/60 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-100 animate-scaleUp">
+            <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+                <h3 class="font-bold text-slate-900 text-base"><i class="fa-solid fa-id-badge text-emerald-600 mr-2"></i> Gate Security Visitor Pass</h3>
+                <button onclick="closeModal('addVisitorModal')" class="text-slate-400 hover:text-slate-700 text-lg"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form onsubmit="handleVisitorSubmit(event)" class="space-y-4 pt-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Visitor Full Name</label>
+                    <input type="text" id="visName" required placeholder="e.g. Suresh Kumar" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Purpose / Company</label>
+                    <input type="text" id="visPurpose" required placeholder="e.g. Amazon Delivery / Cab / Guest" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Visiting Flat</label>
+                    <input type="text" id="visFlat" required placeholder="e.g. Wing A-202" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+                </div>
+                <div class="pt-4 flex items-center justify-end space-x-3">
+                    <button type="button" onclick="closeModal('addVisitorModal')" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold transition">Cancel</button>
+                    <button type="submit" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition shadow-md">Issue Gate Pass</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: Society Settings / Profile -->
+    <div id="settingsModal" class="fixed inset-0 bg-slate-950/60 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-100 animate-scaleUp">
+            <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+                <h3 class="font-bold text-slate-900 text-base"><i class="fa-solid fa-gear text-slate-700 mr-2"></i> Society Settings</h3>
+                <button onclick="closeModal('settingsModal')" class="text-slate-400 hover:text-slate-700 text-lg"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="space-y-4 pt-4 text-xs">
+                <div>
+                    <label class="block font-semibold text-slate-700 mb-1">Society Name</label>
+                    <input type="text" value="Greenwood Co-operative Housing Society Ltd." class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl">
+                </div>
+                <div>
+                    <label class="block font-semibold text-slate-700 mb-1">Registration No.</label>
+                    <input type="text" value="HS/MUM/2012/8942" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl">
+                </div>
+                <div>
+                    <label class="block font-semibold text-slate-700 mb-1">Secretary Name</label>
+                    <input type="text" value="Eleanor Vance" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl">
+                </div>
+                <div>
+                    <label class="block font-semibold text-slate-700 mb-1">Standard Monthly Maintenance Dues</label>
+                    <input type="text" value="₹4,500 per flat" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl">
+                </div>
+                <div class="pt-4 flex items-center justify-end space-x-3">
+                    <button onclick="closeModal('settingsModal')" class="px-5 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-bold transition">Save Settings</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Banner -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-2xl z-50 transform translate-y-20 opacity-0 transition-all duration-300 flex items-center space-x-3 border border-slate-800">
+        <div id="toastIcon" class="text-emerald-400"><i class="fa-solid fa-circle-check text-lg"></i></div>
+        <div>
+            <h4 id="toastTitle" class="font-bold text-xs">Success</h4>
+            <p id="toastMsg" class="text-[11px] text-slate-300">Action completed successfully.</p>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
