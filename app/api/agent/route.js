@@ -4,6 +4,7 @@ import { promisify } from "util";
 import fs from "fs/promises";
 import path from "path";
 import os from "os";
+const platform = os.platform(); // returns 'win32', 'darwin', 'linux', etc.
 
 export const maxDuration = 60;
 export const dynamic = "force-dynamic";
@@ -13,7 +14,7 @@ const BASE_DIR = process.env.VERCEL
   ? path.join("/tmp", "generated")
   : path.join(process.cwd(), "generated");
 const MODEL = "gemini-3.5-flash-lite";
-const MAX_AGENT_TURNS = 5;
+const MAX_AGENT_TURNS = 7;
 
 function safePath(filepath) {
   const resolved = path.resolve(BASE_DIR, filepath);
@@ -51,12 +52,12 @@ const tools = [{
   functionDeclarations: [
     {
       name: "executeCommand",
-      description: "Execute short shell commands like mkdir folder. Do not use this to write file contents.",
+      description: "Execute short shell commands like mkdir folder. Do NOT use touch or shell commands to create files; use writeFile instead.",
       parameters: { type: "OBJECT", properties: { command: { type: "STRING" } }, required: ["command"] },
     },
     {
       name: "writeFile",
-      description: "Write complete code or text content directly into a file safely.",
+      description: "Write complete code or text content directly into a file safely. ALWAYS use this tool to create index.html, style.css, and script.js with full functional code.",
       parameters: {
         type: "OBJECT",
         properties: { filepath: { type: "STRING" }, content: { type: "STRING" } },
@@ -66,20 +67,47 @@ const tools = [{
   ],
 }];
 
-const systemInstruction = `You are a Website builder expert. Analyze the user's request and create the frontend website.
-Use executeCommand only for short shell commands such as mkdir. Use writeFile for all file contents.
-Use relative paths inside the workspace, such as calculator/index.html. Never use absolute paths.
-The current operating system is ${os.platform()}.
-Create index.html, style.css, and script.js as appropriate, then reply with a short summary.`;
+const systemInstruction = `You are a full stack Website builder expert. You have to create the frontend of the website by analysing the user Input.
+        You have two tools:
+        1. 'executeCommand' for shell commands like creating folders (e.g., mkdir).
+        2. 'writeFile' to write code into files. ALWAYS use 'writeFile' instead of shell echo commands.
+        
+       Current user operating system is: ${os.platform()}
+        Give commands to the user according to its operating system support.
+
+<-- Your job -->
+1: Analyze the user query to see what type of website they want to build
+2: Give commands one by one, step by step
+3: Use available tool executeCommand
+
+Example command flow:
+1: Create a folder, e.g. mkdir "calculator"
+2: Inside the folder create index.html, e.g. touch "calculator/index.html"
+3: Then create  calculator /style.css
+4: Then create  calculator/script.js
+5: Write code in the html file
+
+You have to provide terminal or shell commands to the user, they will directly execute them.`;
 
 async function getGeneratedFiles() {
   const generatedFiles = {};
-  for (const filename of ["index.html", "style.css", "script.js"]) {
-    try {
-      generatedFiles[filename] = await fs.readFile(safePath(filename), "utf8");
-    } catch {
-      // Files may be inside a generated project subdirectory.
+  try {
+    const entries = await fs.readdir(BASE_DIR, { recursive: true, withFileTypes: true });
+    for (const entry of entries) {
+      if (entry.isFile()) {
+        const relPath = path.relative(BASE_DIR, path.join(entry.path || entry.parentPath, entry.name));
+        // Only grab web code files
+        if (relPath.endsWith(".html") || relPath.endsWith(".css") || relPath.endsWith(".js")) {
+          try {
+            generatedFiles[relPath] = await fs.readFile(safePath(relPath), "utf8");
+          } catch {
+            // Ignore read errors
+          }
+        }
+      }
     }
+  } catch {
+    // Directory might not exist yet
   }
   return generatedFiles;
 }
@@ -112,24 +140,32 @@ export async function POST(request) {
       if (response.functionCalls?.length) {
         const call = response.functionCalls[0];
         if (response.candidates?.length) conversation.push(response.candidates[0].content);
+        
         const result = availableTools[call.name]
           ? await availableTools[call.name](call.args)
           : { error: `Unknown tool: ${call.name}` };
+          
         toolLogs.push({
           tool: call.name,
           args: call.name === "writeFile" ? { filepath: call.args?.filepath } : { ...call.args },
           result: result.error ? { error: String(result.error).slice(0, 300) } : { success: true },
         });
+        
         conversation.push({ role: "user", parts: [{ functionResponse: { name: call.name, response: result } }] });
       } else {
         if (response.candidates?.length) conversation.push(response.candidates[0].content);
-        reply = response.text || "Done!";
+        reply = response.text || "Website built successfully!";
         break;
       }
     }
 
-    if (!reply) reply = "I reached the step limit. Ask me to continue if something is missing.";
-    return Response.json({ reply, history: conversation, toolLogs, generatedFiles: await getGeneratedFiles() });
+    if (!reply) reply = "I reached the step limit. Website files have been generated!";
+    return Response.json({ 
+      reply, 
+      history: conversation, 
+      toolLogs, 
+      generatedFiles: await getGeneratedFiles() 
+    });
   } catch (error) {
     return Response.json({ error: error.message || "Something went wrong" }, { status: 500 });
   }
