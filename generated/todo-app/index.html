@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexusTask Pro - Advanced To-Do List & Productivity Suite</title>
+    <!-- Google Fonts & FontAwesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar / Navigation -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-logo">
+                    <i class="fa-solid fa-layer-group"></i>
+                </div>
+                <h2>NexusTask</h2>
+            </div>
+
+            <div class="user-profile">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=faces" alt="Avatar" class="avatar">
+                <div class="user-info">
+                    <h4>Alex Morgan</h4>
+                    <p>Product Designer</p>
+                </div>
+            </div>
+
+            <nav class="nav-menu">
+                <p class="nav-category">Views</p>
+                <ul>
+                    <li class="nav-item active" data-filter="all">
+                        <i class="fa-solid fa-inbox"></i>
+                        <span>All Tasks</span>
+                        <span class="badge" id="count-all">0</span>
+                    </li>
+                    <li class="nav-item" data-filter="today">
+                        <i class="fa-solid fa-calendar-day"></i>
+                        <span>Today</span>
+                        <span class="badge" id="count-today">0</span>
+                    </li>
+                    <li class="nav-item" data-filter="upcoming">
+                        <i class="fa-solid fa-calendar-days"></i>
+                        <span>Upcoming</span>
+                        <span class="badge" id="count-upcoming">0</span>
+                    </li>
+                    <li class="nav-item" data-filter="important">
+                        <i class="fa-solid fa-star"></i>
+                        <span>Important</span>
+                        <span class="badge" id="count-important">0</span>
+                    </li>
+                    <li class="nav-item" data-filter="completed">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <span>Completed</span>
+                        <span class="badge" id="count-completed">0</span>
+                    </li>
+                </ul>
+
+                <p class="nav-category">Categories / Lists</p>
+                <ul id="custom-categories-list">
+                    <!-- Dynamic categories rendered here -->
+                </ul>
+                <button class="add-category-btn" id="open-category-modal">
+                    <i class="fa-solid fa-plus"></i> Add New List
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="productivity-mini">
+                    <div class="mini-stats">
+                        <span>Productivity Score</span>
+                        <strong id="productivity-score">0%</strong>
+                    </div>
+                    <div class="progress-bar-mini">
+                        <div class="progress-fill" id="productivity-progress" style="width: 0%;"></div>
+                    </div>
+                </div>
+                <button class="theme-toggle" id="theme-toggle-btn" title="Toggle Theme">
+                    <i class="fa-solid fa-moon"></i> <span>Dark Mode</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Top Header -->
+            <header class="main-header">
+                <div class="header-left">
+                    <button class="mobile-menu-toggle" id="mobile-menu-btn">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <div class="header-title-wrapper">
+                        <h1 id="current-view-title">All Tasks</h1>
+                        <p id="current-date-display">Thursday, October 24</p>
+                    </div>
+                </div>
+
+                <div class="header-right">
+                    <div class="search-bar">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="search-input" placeholder="Search tasks, tags...">
+                    </div>
+
+                    <button class="icon-btn" id="pomodoro-toggle-btn" title="Focus Timer">
+                        <i class="fa-solid fa-stopwatch"></i>
+                    </button>
+
+                    <button class="primary-btn" id="open-task-modal">
+                        <i class="fa-solid fa-plus"></i> New Task
+                    </button>
+                </div>
+            </header>
+
+            <!-- Filters and View Controls -->
+            <div class="controls-bar">
+                <div class="filter-tags" id="tag-filters-container">
+                    <span class="tag-pill active" data-tag="all">#All Tags</span>
+                    <!-- Dynamic tag pills -->
+                </div>
+
+                <div class="sort-dropdown-wrapper">
+                    <select id="sort-select" class="custom-select">
+                        <option value="dueDate">Sort by: Due Date</option>
+                        <option value="priority">Sort by: Priority</option>
+                        <option value="title">Sort by: Title (A-Z)</option>
+                        <option value="created">Sort by: Date Created</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Tasks Container -->
+            <div class="tasks-container" id="tasks-container">
+                <!-- Empty state handled in JS -->
+            </div>
+
+            <!-- Floating Action Button for Mobile -->
+            <button class="fab" id="fab-btn">
+                <i class="fa-solid fa-plus"></i>
+            </button>
+        </main>
+    </div>
+
+    <!-- Task Modal (Create / Edit) -->
+    <div class="modal-backdrop" id="task-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="modal-task-title">Create New Task</h3>
+                <button class="close-modal" id="close-task-modal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="task-form">
+                <input type="hidden" id="task-id">
+                
+                <div class="form-group">
+                    <label for="task-title-input">Task Title *</label>
+                    <input type="text" id="task-title-input" placeholder="e.g. Redesign landing page UI" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="task-category-select">List / Category</label>
+                        <select id="task-category-select">
+                            <!-- Populated dynamically -->
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="task-priority-select">Priority</label>
+                        <select id="task-priority-select">
+                            <option value="low">Low Priority</option>
+                            <option value="medium" selected>Medium Priority</option>
+                            <option value="high">High Priority ⚡</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="task-date-input">Due Date</label>
+                        <input type="date" id="task-date-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="task-time-input">Due Time</label>
+                        <input type="time" id="task-time-input">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="task-tags-input">Tags (comma separated)</label>
+                    <input type="text" id="task-tags-input" placeholder="design, frontend, urgent">
+                </div>
+
+                <div class="form-group">
+                    <label for="task-desc-input">Description / Notes</label>
+                    <textarea id="task-desc-input" rows="3" placeholder="Add any detailed notes or checklists..."></textarea>
+                </div>
+
+                <div class="subtasks-section">
+                    <label>Subtasks</label>
+                    <div class="subtask-input-row">
+                        <input type="text" id="subtask-input" placeholder="Add a subtask...">
+                        <button type="button" id="add-subtask-btn" class="secondary-btn"><i class="fa-solid fa-plus"></i> Add</button>
+                    </div>
+                    <ul id="subtask-list-preview" class="subtask-list-preview">
+                        <!-- Dynamic subtasks -->
+                    </ul>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="secondary-btn" id="cancel-task-btn">Cancel</button>
+                    <button type="submit" class="primary-btn" id="save-task-btn">Save Task</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Category Modal -->
+    <div class="modal-backdrop" id="category-modal">
+        <div class="modal modal-sm">
+            <div class="modal-header">
+                <h3>Create New List</h3>
+                <button class="close-modal" id="close-category-modal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="category-form">
+                <div class="form-group">
+                    <label for="category-name-input">List Name</label>
+                    <input type="text" id="category-name-input" placeholder="e.g. Side Hustle" required>
+                </div>
+                <div class="form-group">
+                    <label for="category-color-input">Color Tag</label>
+                    <div class="color-picker-options" id="color-picker-options">
+                        <span class="color-dot active" style="background: #6366f1;" data-color="#6366f1"></span>
+                        <span class="color-dot" style="background: #ec4899;" data-color="#ec4899"></span>
+                        <span class="color-dot" style="background: #3b82f6;" data-color="#3b82f6"></span>
+                        <span class="color-dot" style="background: #10b981;" data-color="#10b981"></span>
+                        <span class="color-dot" style="background: #f59e0b;" data-color="#f59e0b"></span>
+                        <span class="color-dot" style="background: #8b5cf6;" data-color="#8b5cf6"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="secondary-btn" id="cancel-category-btn">Cancel</button>
+                    <button type="submit" class="primary-btn">Create List</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Pomodoro Timer Modal / Floating Widget -->
+    <div class="pomodoro-modal" id="pomodoro-modal">
+        <div class="pomodoro-header">
+            <h3><i class="fa-solid fa-stopwatch"></i> Focus Timer</h3>
+            <button id="close-pomodoro"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="pomodoro-modes">
+            <button class="pomo-mode-btn active" data-time="1500">Pomodoro (25m)</button>
+            <button class="pomo-mode-btn" data-time="300">Short Break (5m)</button>
+            <button class="pomo-mode-btn" data-time="900">Long Break (15m)</button>
+        </div>
+        <div class="pomodoro-clock">
+            <svg class="progress-ring" width="220" height="220">
+                <circle class="progress-ring__circle-bg" stroke="#e2e8f0" stroke-width="8" fill="transparent" r="96" cx="110" cy="110"/>
+                <circle class="progress-ring__circle" stroke="#6366f1" stroke-width="8" stroke-linecap="round" fill="transparent" r="96" cx="110" cy="110"/>
+            </svg>
+            <div class="pomodoro-time" id="pomo-time-display">25:00</div>
+        </div>
+        <div class="pomodoro-controls">
+            <button class="primary-btn" id="pomo-start-btn">Start</button>
+            <button class="secondary-btn" id="pomo-reset-btn">Reset</button>
+        </div>
+    </div>
+
+    <!-- Audio for alarm -->
+    <audio id="alarm-sound" src="https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3" preload="auto"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
