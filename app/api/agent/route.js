@@ -14,7 +14,7 @@ const asyncExecute = promisify(exec);
 const BASE_DIR = process.env.VERCEL
   ? path.join("/tmp", "generated")
   : path.join(process.cwd(), "generated");
-const MODEL = "gemini-2.5-flash";
+const MODEL = "gemini-3.5-flash-lite";
 const MAX_AGENT_TURNS = 12; // Increased turns so agent has time to create HTML, CSS, and JS
 
 function safePath(filepath) {
