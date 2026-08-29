@@ -10,6 +10,8 @@ const IS_VERCEL = !!process.env.VERCEL;
 export const maxDuration = 60;
 export const dynamic = "force-dynamic";
 
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+
 const asyncExecute = promisify(exec);
 const BASE_DIR = process.env.VERCEL
   ? path.join("/tmp", "generated")
