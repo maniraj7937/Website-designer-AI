@@ -16,3 +16,6 @@
 # misc
 .DS_Store
 npm-debug.log*
+
+.vercel
+.env*

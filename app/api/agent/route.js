@@ -4,8 +4,9 @@ import { promisify } from "util";
 import fs from "fs/promises";
 import path from "path";
 import os from "os";
-const platform = os.platform(); // returns 'win32', 'darwin', 'linux', etc.
+import { kv } from "@vercel/kv";
 
+const IS_VERCEL = !!process.env.VERCEL;
 export const maxDuration = 60;
 export const dynamic = "force-dynamic";
 
@@ -13,8 +14,8 @@ const asyncExecute = promisify(exec);
 const BASE_DIR = process.env.VERCEL
   ? path.join("/tmp", "generated")
   : path.join(process.cwd(), "generated");
-const MODEL = "gemini-3.5-flash-lite";
-const MAX_AGENT_TURNS = 7;
+const MODEL = "gemini-2.5-flash";
+const MAX_AGENT_TURNS = 12; // Increased turns so agent has time to create HTML, CSS, and JS
 
 function safePath(filepath) {
   const resolved = path.resolve(BASE_DIR, filepath);
@@ -38,10 +39,16 @@ async function executeCommand({ command }) {
 
 async function writeFile({ filepath, content }) {
   try {
-    const target = safePath(filepath);
-    await fs.mkdir(path.dirname(target), { recursive: true });
-    await fs.writeFile(target, content, "utf8");
-    return { success: true, output: `Successfully wrote file to ${filepath}` };
+    const normalizedPath = filepath.replace(/\\/g, "/");
+    if (IS_VERCEL) {
+      await kv.set(`file:${normalizedPath}`, content);
+      return { success: true, output: `Successfully wrote file to cloud storage: ${normalizedPath}` };
+    } else {
+      const target = safePath(normalizedPath);
+      await fs.mkdir(path.dirname(target), { recursive: true });
+      await fs.writeFile(target, content, "utf8");
+      return { success: true, output: `Successfully wrote file locally: ${normalizedPath}` };
+    }
   } catch (error) {
     return { error: error.message };
   }
@@ -52,12 +59,12 @@ const tools = [{
   functionDeclarations: [
     {
       name: "executeCommand",
-      description: "Execute short shell commands like mkdir folder. Do NOT use touch or shell commands to create files; use writeFile instead.",
+      description: "Execute terminal shell commands like mkdir for directory management.",
       parameters: { type: "OBJECT", properties: { command: { type: "STRING" } }, required: ["command"] },
     },
     {
       name: "writeFile",
-      description: "Write complete code or text content directly into a file safely. ALWAYS use this tool to create index.html, style.css, and script.js with full functional code.",
+      description: "Write code content directly into files. MANDATORY: You must write index.html, style.css, AND script.js for every website project.",
       parameters: {
         type: "OBJECT",
         properties: { filepath: { type: "STRING" }, content: { type: "STRING" } },
@@ -67,47 +74,55 @@ const tools = [{
   ],
 }];
 
-const systemInstruction = `You are a full stack Website builder expert. You have to create the frontend of the website by analysing the user Input.
-        You have two tools:
-        1. 'executeCommand' for shell commands like creating folders (e.g., mkdir).
-        2. 'writeFile' to write code into files. ALWAYS use 'writeFile' instead of shell echo commands.
-        
-       Current user operating system is: ${os.platform()}
-        Give commands to the user according to its operating system support.
+const systemInstruction = `You are a world-class Full Stack Website Architect and Senior Frontend Engineer. Your objective is to build complete, multi-file, fully functional, production-ready web applications based on user prompts.
 
-<-- Your job -->
-1: Analyze the user query to see what type of website they want to build
-2: Give commands one by one, step by step
-3: Use available tool executeCommand
+## MANDATORY RULES
+1. **Always Create 3 Files:** For every request, you MUST create a folder and write THREE separate files using the \`writeFile\` tool:
+   - \`folder-name/index.html\` (linking to style.css and script.js)
+   - \`folder-name/style.css\` (modern, responsive CSS design)
+   - \`folder-name/script.js\` (full production JavaScript containing all interactive button handlers, dynamic rendering, and logic)
+2. **Never Skip script.js:** Do not put JavaScript inside HTML script tags unless necessary; always implement fully working functionality inside \`script.js\`.
+3. **Complete Code Only:** No placeholders or comments like \`// add code here\`. Write fully working, production-ready code.
 
-Example command flow:
-1: Create a folder, e.g. mkdir "calculator"
-2: Inside the folder create index.html, e.g. touch "calculator/index.html"
-3: Then create  calculator /style.css
-4: Then create  calculator/script.js
-5: Write code in the html file
-
-You have to provide terminal or shell commands to the user, they will directly execute them.`;
+## Execution Workflow
+1. Use \`executeCommand\` to create the directory: \`mkdir project-name\`
+2. Use \`writeFile\` to create \`project-name/index.html\`
+3. Use \`writeFile\` to create \`project-name/style.css\`
+4. Use \`writeFile\` to create \`project-name/script.js\` with full interactive logic.
+`;
 
 async function getGeneratedFiles() {
   const generatedFiles = {};
-  try {
-    const entries = await fs.readdir(BASE_DIR, { recursive: true, withFileTypes: true });
-    for (const entry of entries) {
-      if (entry.isFile()) {
-        const relPath = path.relative(BASE_DIR, path.join(entry.path || entry.parentPath, entry.name));
-        // Only grab web code files
+  if (IS_VERCEL) {
+    try {
+      const keys = await kv.keys("file:*");
+      for (const k of keys) {
+        const relPath = k.replace("file:", "");
         if (relPath.endsWith(".html") || relPath.endsWith(".css") || relPath.endsWith(".js")) {
-          try {
-            generatedFiles[relPath] = await fs.readFile(safePath(relPath), "utf8");
-          } catch {
-            // Ignore read errors
+          generatedFiles[relPath] = await kv.get(k);
+        }
+      }
+    } catch {
+      // Ignore read errors
+    }
+  } else {
+    try {
+      const entries = await fs.readdir(BASE_DIR, { recursive: true, withFileTypes: true });
+      for (const entry of entries) {
+        if (entry.isFile()) {
+          const relPath = path.relative(BASE_DIR, path.join(entry.path || entry.parentPath, entry.name));
+          if (relPath.endsWith(".html") || relPath.endsWith(".css") || relPath.endsWith(".js")) {
+            try {
+              generatedFiles[relPath] = await fs.readFile(safePath(relPath), "utf8");
+            } catch {
+              // Ignore read errors
+            }
           }
         }
       }
+    } catch {
+      // Directory might not exist yet
     }
-  } catch {
-    // Directory might not exist yet
   }
   return generatedFiles;
 }

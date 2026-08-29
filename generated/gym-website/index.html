@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gym Website</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="#">FITLIFE</a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#classes">Classes</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="nav-toggle" aria-label="toggle navigation">
+                <span class="hamburger"></span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="container">
+                <h1>Unlock Your Full Potential</h1>
+                <p>Join FitLife and transform your body and mind with our expert trainers and cutting-edge facilities.</p>
+                <button class="btn primary-btn" data-action="join-now">Join Now</button>
+            </div>
+        </section>
+
+        <section id="services" class="services">
+            <div class="container">
+                <h2>Our Services</h2>
+                <div class="service-grid">
+                    <div class="service-card">
+                        <h3>Personal Training</h3>
+                        <p>Achieve your fitness goals faster with one-on-one sessions tailored just for you.</p>
+                        <button class="btn secondary-btn" data-service="personal-training">Learn More</button>
+                    </div>
+                    <div class="service-card">
+                        <h3>Group Classes</h3>
+                        <p>Stay motivated and energized with a variety of fun and challenging group workouts.</p>
+                        <button class="btn secondary-btn" data-service="group-classes">Learn More</button>
+                    </div>
+                    <div class="service-card">
+                        <h3>Nutrition Plans</h3>
+                        <p>Optimize your diet with personalized nutrition guidance from our experts.</p>
+                        <button class="btn secondary-btn" data-service="nutrition-plans">Learn More</button>
+                    </div>
+                    <div class="service-card">
+                        <h3>Spa & Recovery</h3>
+                        <p>Relax and rejuvenate your body with our state-of-the-art spa and recovery facilities.</p>
+                        <button class="btn secondary-btn" data-service="spa-recovery">Learn More</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="classes" class="classes">
+            <div class="container">
+                <h2>Our Classes</h2>
+                <p>Explore our diverse range of classes designed to cater to all fitness levels and preferences.</p>
+                <button class="btn primary-btn" data-action="view-schedule">View Class Schedule</button>
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <div class="container">
+                <h2>About Us</h2>
+                <p>FitLife is dedicated to fostering a community where everyone can thrive on their fitness journey. Our mission is to provide an inspiring environment, innovative programs, and exceptional coaching to help you achieve lasting results.</p>
+                <button class="btn secondary-btn" data-action="read-more-about">Read More</button>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <div class="container">
+                <h2>Contact Us</h2>
+                <p>Have questions or ready to start your fitness journey? Reach out to us!</p>
+                <button class="btn primary-btn" data-action="contact-us">Get in Touch</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 FITLIFE. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#" aria-label="Facebook">F</a>
+                <a href="#" aria-label="Twitter">T</a>
+                <a href="#" aria-label="Instagram">I</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

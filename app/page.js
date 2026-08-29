@@ -9,7 +9,7 @@ const SUGGESTIONS = [
   "Create a luxury landing page",
 ];
 
-const MODEL_OPTIONS = ["Gemini 3.5 flash lite"];
+const MODEL_OPTIONS = ["Open source"];
 
 export default function Home() {
   const [projectHistory, setProjectHistory] = useState([]);
